@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB26DB381AC9898E00616A96 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB26DB371AC9898E00616A96 /* DetailViewController.swift */; };
 		BB3810C21ABF522800ADCE18 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3810C11ABF522800ADCE18 /* LandingViewController.swift */; };
 		BB45F7F21A30E9B0006E8AFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F7F11A30E9B0006E8AFB /* AppDelegate.swift */; };
 		BB45F7F41A30E9B0006E8AFB /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F7F31A30E9B0006E8AFB /* HomeController.swift */; };
@@ -29,7 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BB3810C11ABF522800ADCE18 /* LandingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
+		BB26DB371AC9898E00616A96 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		BB3810C11ABF522800ADCE18 /* LandingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LandingViewController.swift; path = ../LandingViewController.swift; sourceTree = "<group>"; };
 		BB45F7EC1A30E9B0006E8AFB /* feedbaz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = feedbaz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB45F7F01A30E9B0006E8AFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB45F7F11A30E9B0006E8AFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,10 +64,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BB45F7E31A30E9B0006E8AFB = {
+		BB26DB321AC9890A00616A96 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				BB3810C11ABF522800ADCE18 /* LandingViewController.swift */,
+				BB45F7F31A30E9B0006E8AFB /* HomeController.swift */,
+				BB26DB371AC9898E00616A96 /* DetailViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		BB26DB331AC9891A00616A96 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		BB26DB351AC9894400616A96 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				BB45F8131A30EA93006E8AFB /* DownloadManager.swift */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
+		BB26DB361AC9895300616A96 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BB45F8111A30EA4D006E8AFB /* BlogPost.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		BB45F7E31A30E9B0006E8AFB = {
+			isa = PBXGroup;
+			children = (
 				BB45F7EE1A30E9B0006E8AFB /* feedbaz */,
 				BB45F8041A30E9B0006E8AFB /* feedbazTests */,
 				BB45F7ED1A30E9B0006E8AFB /* Products */,
@@ -84,14 +118,15 @@
 		BB45F7EE1A30E9B0006E8AFB /* feedbaz */ = {
 			isa = PBXGroup;
 			children = (
+				BB26DB361AC9895300616A96 /* Model */,
+				BB26DB351AC9894400616A96 /* Manager */,
+				BB26DB331AC9891A00616A96 /* Resources */,
+				BB26DB321AC9890A00616A96 /* ViewControllers */,
 				BB45F7F11A30E9B0006E8AFB /* AppDelegate.swift */,
-				BB45F7F31A30E9B0006E8AFB /* HomeController.swift */,
 				BB45F7F51A30E9B0006E8AFB /* Main.storyboard */,
 				BB45F7F81A30E9B0006E8AFB /* Images.xcassets */,
 				BB45F7FA1A30E9B0006E8AFB /* LaunchScreen.xib */,
 				BB45F7EF1A30E9B0006E8AFB /* Supporting Files */,
-				BB45F8111A30EA4D006E8AFB /* BlogPost.swift */,
-				BB45F8131A30EA93006E8AFB /* DownloadManager.swift */,
 			);
 			path = feedbaz;
 			sourceTree = "<group>";
@@ -224,6 +259,7 @@
 				BB45F8121A30EA4D006E8AFB /* BlogPost.swift in Sources */,
 				BB45F7F41A30E9B0006E8AFB /* HomeController.swift in Sources */,
 				BB45F7F21A30E9B0006E8AFB /* AppDelegate.swift in Sources */,
+				BB26DB381AC9898E00616A96 /* DetailViewController.swift in Sources */,
 				BB3810C21ABF522800ADCE18 /* LandingViewController.swift in Sources */,
 				BB45F8141A30EA93006E8AFB /* DownloadManager.swift in Sources */,
 			);

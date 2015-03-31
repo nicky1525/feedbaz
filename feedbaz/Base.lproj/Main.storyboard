@@ -32,16 +32,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="yourBlogName" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6cd-iZ-6Cz">
-                                <rect key="frame" x="219" y="442" width="225" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="118" y="477" width="205" height="30"/>
-                                </variation>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="http://www." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WvX-hS-MzF">
-                                <rect key="frame" x="124" y="446" width="96" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="http://www." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="WvX-hS-MzF">
+                                <rect key="frame" x="155" y="446" width="96" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -79,13 +71,15 @@
                                     <rect key="frame" x="221" y="160" width="108" height="30"/>
                                 </variation>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tvE-Bf-4Aj">
-                                <rect key="frame" x="452" y="445" width="50" height="22"/>
-                                <state key="normal" title="Add"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Select a blog from the list" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JXL-an-mgg">
+                                <rect key="frame" x="196" y="87" width="219" height="60"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="323" y="481" width="50" height="22"/>
+                                    <rect key="frame" x="91" y="81" width="219" height="60"/>
                                 </variation>
-                            </button>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="or" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q57-AJ-xOc">
                                 <rect key="frame" x="289" y="313" width="33" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -113,20 +107,18 @@
                                     <rect key="frame" x="238" y="225" width="74" height="30"/>
                                 </variation>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Select a blog from the list" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JXL-an-mgg">
-                                <rect key="frame" x="196" y="87" width="219" height="60"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="yourBlogName" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="6cd-iZ-6Cz">
+                                <rect key="frame" x="251" y="437" width="200" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="91" y="81" width="219" height="60"/>
+                                    <rect key="frame" x="118" y="477" width="205" height="30"/>
                                 </variation>
-                            </label>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="JXL-an-mgg" secondAttribute="centerX" constant="-5.5" id="4nI-rG-DM1"/>
-                            <constraint firstItem="tvE-Bf-4Aj" firstAttribute="leading" secondItem="6cd-iZ-6Cz" secondAttribute="trailing" constant="8" id="7BK-Mo-2mr"/>
                             <constraint firstAttribute="centerX" secondItem="q57-AJ-xOc" secondAttribute="centerX" constant="-5.5" id="DHX-BF-V4E"/>
                             <constraint firstItem="6cd-iZ-6Cz" firstAttribute="leading" secondItem="WvX-hS-MzF" secondAttribute="trailing" constant="-1" id="Jhg-sc-g2E"/>
                             <constraint firstAttribute="centerX" secondItem="mgO-sC-Jgm" secondAttribute="centerX" constant="-5.5" id="Ph6-Gq-cdu"/>
@@ -134,8 +126,9 @@
                             <constraint firstItem="PIt-0g-kPb" firstAttribute="top" secondItem="JTQ-6m-H0x" secondAttribute="bottom" constant="107" id="ZdO-fQ-aeT"/>
                             <constraint firstAttribute="centerX" secondItem="PIt-0g-kPb" secondAttribute="centerX" constant="-5.5" id="cja-n9-oyC"/>
                             <constraint firstAttribute="centerX" secondItem="65h-8l-fYA" secondAttribute="centerX" constant="-5" id="egf-Du-i7f"/>
+                            <constraint firstAttribute="centerX" secondItem="6cd-iZ-6Cz" secondAttribute="centerX" constant="-51" id="f5l-v6-zx7"/>
+                            <constraint firstItem="6cd-iZ-6Cz" firstAttribute="top" secondItem="mgO-sC-Jgm" secondAttribute="bottom" constant="3" id="pye-Zz-fF2"/>
                             <constraint firstAttribute="centerX" secondItem="5GG-Ab-FfS" secondAttribute="centerX" constant="-5.5" id="tUb-dr-7CF"/>
-                            <constraint firstAttribute="centerX" secondItem="6cd-iZ-6Cz" secondAttribute="centerX" constant="-31.5" id="zOH-Hw-BUE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Eej-Pd-JMj"/>

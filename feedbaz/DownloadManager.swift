@@ -12,8 +12,9 @@ let kKEY_URL_PATH:String = "http://www.simonewebdesign.it/atom.xml"
 
 class DownloadManager: NSObject,  NSXMLParserDelegate {
     
-    var postTitle: String = String()
-    var postLink: String = String()
+    var postTitle: NSMutableString?
+    var postLink: NSMutableString?
+    var pubDate: NSMutableString?
     var eName: String = String()
     var parser: NSXMLParser = NSXMLParser()
     var blogPosts : [BlogPost] = []
@@ -31,9 +32,11 @@ class DownloadManager: NSObject,  NSXMLParserDelegate {
     
     func parser(parser: NSXMLParser!, didStartElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!, attributes attributeDict: [NSObject : AnyObject]!) {
         eName = elementName
+        
         if elementName == "entry" {
-            postTitle = String()
-            postLink = String()
+            postTitle = NSMutableString()
+            postLink = NSMutableString()
+            pubDate = NSMutableString()
         }
     }
     
@@ -41,9 +44,11 @@ class DownloadManager: NSObject,  NSXMLParserDelegate {
         let data = string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         if (!data.isEmpty) {
             if eName == "title" {
-                postTitle += data
+                postTitle?.appendString(data)
             } else if eName == "id" {
-                postLink += data
+                postLink?.appendString(data)
+            } else if eName == "updated" {
+               pubDate?.appendString(data)
             }
         }
     }
@@ -51,8 +56,13 @@ class DownloadManager: NSObject,  NSXMLParserDelegate {
     func parser(parser: NSXMLParser!, didEndElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!) {
         if elementName == "entry" {
             let blogPost: BlogPost = BlogPost()
-            blogPost.postTitle = postTitle
-            blogPost.postLink = postLink
+            blogPost.postTitle = postTitle!
+            blogPost.postLink = postLink!
+            var formatter = NSDateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+            blogPost.postDate = formatter.dateFromString(pubDate!.substringToIndex(10))
+            println(blogPost.postDate)
             blogPosts.append(blogPost)
         }
     }

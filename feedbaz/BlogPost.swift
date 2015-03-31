@@ -11,5 +11,5 @@ import UIKit
 class BlogPost: NSObject {
     var postTitle : String = String()
     var postLink : String = String ()
-    var postImage: UIImage?
+    var postDate: NSDate?
 }

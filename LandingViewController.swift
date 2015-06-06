@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 nicky1525. All rights reserved.
 //
 
-import UIkit
+import UIKit
 
 class LandingViewController: UIViewController {
     override func viewDidLoad() {

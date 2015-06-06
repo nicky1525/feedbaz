@@ -24,7 +24,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         
         let blogPost: BlogPost = manager.blogPosts[indexPath.row]
         cell.textLabel?.text = blogPost.postTitle

@@ -12,7 +12,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     
     var manager = DownloadManager()
     var post: BlogPost?
-    
+    @IBOutlet weak var lblBlogTitle: UILabel!
     func getManager() -> DownloadManager {
         return self.manager
     }
@@ -36,7 +36,19 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         
         let blogPost: BlogPost = manager.blogPosts[indexPath.row]
-        cell.textLabel?.text = blogPost.postTitle
+        var author = cell.viewWithTag(1) as! UILabel
+        author.text = blogPost.postAuthor
+        if author.text != "" {
+            author.hidden = true
+        }
+        var title = cell.viewWithTag(2) as! UILabel
+        title.text = blogPost.postTitle
+        var date = cell.viewWithTag(3) as! UILabel
+        
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = "dd/MM/yy"
+        date.text = formatter.stringFromDate(blogPost.postDate!)
+
         return cell
     }
     

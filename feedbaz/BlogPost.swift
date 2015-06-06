@@ -11,5 +11,6 @@ import UIKit
 class BlogPost: NSObject {
     var postTitle : String = String()
     var postLink : String = String ()
+    var postAuthor : String = String ()
     var postDate: NSDate?
 }

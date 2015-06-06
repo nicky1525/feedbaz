@@ -14,7 +14,9 @@ class DownloadManager: NSObject,  NSXMLParserDelegate {
     
     var postTitle: NSMutableString?
     var postLink: NSMutableString?
+    var postAuthor: NSMutableString?
     var pubDate: NSMutableString?
+    var blogAuthor: NSMutableString?
     var eName: String = String()
     var parser: NSXMLParser = NSXMLParser()
     var blogPosts : [BlogPost] = []
@@ -37,7 +39,11 @@ class DownloadManager: NSObject,  NSXMLParserDelegate {
             postTitle = NSMutableString()
             postLink = NSMutableString()
             pubDate = NSMutableString()
+            postAuthor = NSMutableString()
         }
+//        else if(elementName == "title") {
+//            blogAuthor = NSMutableString()
+//        }
     }
     
     func parser(parser: NSXMLParser!, foundCharacters string: String!) {
@@ -48,16 +54,24 @@ class DownloadManager: NSObject,  NSXMLParserDelegate {
             } else if eName == "id" {
                 postLink?.appendString(data)
             } else if eName == "updated" {
-               pubDate?.appendString(data)
+                pubDate?.appendString(data)
+            } else if eName == "author" {
+                postAuthor?.appendString(data)
             }
         }
     }
+//    
+//    func parser(parser: NSXMLParser, foundElementDeclarationWithName elementName: String, model: String) {
+//        println(elementName)
+//        println(model)
+//    }
     
     func parser(parser: NSXMLParser!, didEndElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!) {
         if elementName == "entry" {
             let blogPost: BlogPost = BlogPost()
             blogPost.postTitle = postTitle! as String
             blogPost.postLink = postLink! as String
+            blogPost.postAuthor = postAuthor! as String
             var formatter = NSDateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")

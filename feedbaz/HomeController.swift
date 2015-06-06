@@ -11,6 +11,15 @@ import UIKit
 class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate, UITableViewDataSource {
     
     var manager = DownloadManager()
+    var post: BlogPost?
+    
+    func getManager() -> DownloadManager {
+        return self.manager
+    }
+    
+    func setBlogPost(post:BlogPost) {
+        self.post = post
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,10 +40,17 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // TODO:
+    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+         setBlogPost(getManager().blogPosts[indexPath.row])
+        return indexPath
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier != "ShowDetails"{ return }
+        let viewController:DetailViewController = segue.destinationViewController as!DetailViewController
+        viewController.blogPost = post
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

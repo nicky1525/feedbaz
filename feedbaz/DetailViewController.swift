@@ -9,8 +9,12 @@
 import UIKit
 
 class DetailViewController: UIViewController {
+    var blogPost: BlogPost?
+    @IBOutlet weak var webView: UIWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.webView.loadRequest(NSURLRequest(URL: NSURL(string: blogPost!.postLink)!))
     }
-
+    
+   
 }

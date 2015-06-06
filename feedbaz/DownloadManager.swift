@@ -56,8 +56,8 @@ class DownloadManager: NSObject,  NSXMLParserDelegate {
     func parser(parser: NSXMLParser!, didEndElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!) {
         if elementName == "entry" {
             let blogPost: BlogPost = BlogPost()
-            blogPost.postTitle = postTitle!
-            blogPost.postLink = postLink!
+            blogPost.postTitle = postTitle! as String
+            blogPost.postLink = postLink! as String
             var formatter = NSDateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")

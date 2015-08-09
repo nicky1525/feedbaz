@@ -8,121 +8,91 @@
 
 import UIKit
 
-class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate, UITableViewDataSource {
+class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate, UITableViewDataSource, MWFeedParserDelegate {
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var lblBlogTitle: UILabel!
     var strUrl: String!
-    var post: RSSItem?
-    var SimonePost: BlogPost?
-    var blogPosts : [RSSItem] = []
+    var post: MWFeedItem?
+    var blogPosts : NSMutableArray!
     var blogTitle: String!
-    var isSimone:Bool!
-    var manager = DownloadManager()
-    func getManager() -> DownloadManager {
-        return self.manager
-    }
-    func setBlogPost(post:RSSItem) {
+
+    func setBlogPost(post:MWFeedItem) {
         self.post = post
-    }
-    
-    func SimonePost(post:BlogPost) {
-        self.SimonePost = post
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        blogPosts = NSMutableArray()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        if strUrl.rangeOfString("simonewebdesign") != nil{
-            manager.getData()
-            isSimone = true
-            self.tableview.reloadData()
-            self.lblBlogTitle.hidden = false;
-        }
-        else {
-            isSimone = false
-            let url: NSURL = NSURL(string:strUrl)!
-            let request: NSURLRequest = NSURLRequest(URL:url)
-            
-            RSSParser.parseFeedForRequest(request, callback: { (feed, error) -> Void in
-                self.blogPosts = feed!.items!
-                self.blogTitle = feed!.title!
-                self.tableview.reloadData()
-                self.lblBlogTitle.text = self.blogTitle
-                self.lblBlogTitle.hidden = false
-            })
+            var feedParser = MWFeedParser(feedURL: NSURL(string: strUrl))
+            feedParser.delegate = self
+            feedParser.feedParseType = ParseTypeFull
+            feedParser.connectionType = ConnectionTypeSynchronously
+            feedParser.parse();
+    }
+    
+    // MARK: MWFeedParserDelegate
+    func feedParser(parser: MWFeedParser!, didFailWithError error: NSError!) {
+    }
+    
+    func feedParser(parser: MWFeedParser!, didParseFeedItem item: MWFeedItem!) {
+        blogPosts.addObject(item)
+    }
+    
+    func feedParserDidFinish(parser: MWFeedParser!) {
+        tableview.reloadData()
+        if blogTitle != nil {
+            lblBlogTitle.text = blogTitle
+            lblBlogTitle.hidden = false
         }
     }
     
+    func feedParserDidStart(parser: MWFeedParser!) {
+    }
+    
+    func feedParser(parser: MWFeedParser!, didParseFeedInfo info: MWFeedInfo!) {
+        blogTitle = info.title
+    }
+    
+    // MARK: UITableViewDelegate
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isSimone == true {
-            return manager.blogPosts.count
-        }
         return blogPosts.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
-        if(isSimone == true) {
-            let blogPost: BlogPost = manager.blogPosts[indexPath.row]
-            var author = cell.viewWithTag(1) as! UILabel
-            author.text = blogPost.postAuthor
-            if author.text != "" {
-                author.hidden = true
-            }
-            var title = cell.viewWithTag(2) as! UILabel
-            title.text = blogPost.postTitle
-            var date = cell.viewWithTag(3) as! UILabel
-            
-            var formatter = NSDateFormatter()
-            formatter.dateFormat = "dd/MM/yy"
-            date.text = formatter.stringFromDate(blogPost.postDate!)
-            
-        }
-        else {
-            let blogPost: RSSItem = blogPosts[indexPath.row]
+            let blogPost: MWFeedItem = blogPosts[indexPath.row] as! MWFeedItem
+        
+        var titleText = (blogPost.title != nil) ? blogPost.title : "[No Title]";
             var author = cell.viewWithTag(1) as! UILabel
             author.text = blogPost.author
             if author.text != "" {
                 author.hidden = true
             }
             var title = cell.viewWithTag(2) as! UILabel
-            title.text = blogPost.title
+            title.text = titleText
             var date = cell.viewWithTag(3) as! UILabel
             
             var formatter = NSDateFormatter()
             formatter.dateFormat = "dd/MM/yy"
-            date.text = formatter.stringFromDate(blogPost.pubDate!)
-        }
-        
+            date.text = formatter.stringFromDate(blogPost.date!)
         return cell
     }
     
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if (isSimone == true) {
-            SimonePost(manager.blogPosts[indexPath.row])
-        } else {
-            setBlogPost(blogPosts[indexPath.row])
-        }
-        
+        setBlogPost(blogPosts[indexPath.row] as! MWFeedItem)
         return indexPath
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier != "ShowDetails"{ return }
         let viewController:DetailViewController = segue.destinationViewController as!DetailViewController
-        viewController.isSimone = isSimone
-        if isSimone == true {
-            viewController.simoneBlogPost = SimonePost
-        }
-        else {
-            viewController.blogPost = post
-        }
-        
+        viewController.blogPost = post
     }
 
     override func didReceiveMemoryWarning() {

@@ -40,7 +40,6 @@ class LandingViewController: UIViewController {
         scrollview.addGestureRecognizer(tap)
     }
     
-    
     func keyboardWillShow(aNotification:NSNotification) {
         var info = NSDictionary(dictionary: aNotification.userInfo!)
         var kbSize = info.objectForKey(UIKeyboardFrameBeginUserInfoKey)?.size

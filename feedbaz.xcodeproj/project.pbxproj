@@ -10,18 +10,18 @@
 		BB26DB381AC9898E00616A96 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB26DB371AC9898E00616A96 /* DetailViewController.swift */; };
 		BB3810C21ABF522800ADCE18 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3810C11ABF522800ADCE18 /* LandingViewController.swift */; };
 		BB45F7F21A30E9B0006E8AFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F7F11A30E9B0006E8AFB /* AppDelegate.swift */; };
-		BB45F7F41A30E9B0006E8AFB /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F7F31A30E9B0006E8AFB /* HomeController.swift */; };
 		BB45F7F71A30E9B0006E8AFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB45F7F51A30E9B0006E8AFB /* Main.storyboard */; };
 		BB45F7F91A30E9B0006E8AFB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB45F7F81A30E9B0006E8AFB /* Images.xcassets */; };
 		BB45F7FC1A30E9B0006E8AFB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB45F7FA1A30E9B0006E8AFB /* LaunchScreen.xib */; };
 		BB45F8081A30E9B0006E8AFB /* feedbazTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F8071A30E9B0006E8AFB /* feedbazTests.swift */; };
-		BB45F8121A30EA4D006E8AFB /* BlogPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F8111A30EA4D006E8AFB /* BlogPost.swift */; };
-		BB45F8141A30EA93006E8AFB /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F8131A30EA93006E8AFB /* DownloadManager.swift */; };
-		BB6712541B778D6200052698 /* NSDate+dateFromInternetDateTimeString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB67124F1B778D6200052698 /* NSDate+dateFromInternetDateTimeString.swift */; };
-		BB6712551B778D6200052698 /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6712501B778D6200052698 /* RSSFeed.swift */; };
-		BB6712561B778D6200052698 /* RSSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6712511B778D6200052698 /* RSSItem.swift */; };
-		BB6712571B778D6200052698 /* RSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6712521B778D6200052698 /* RSSParser.swift */; };
-		BB6712581B778D6200052698 /* String+imageLinksFromHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6712531B778D6200052698 /* String+imageLinksFromHTML.swift */; };
+		BB6D70021B77C9940011072D /* MWFeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6D6FFD1B77C9940011072D /* MWFeedParser.m */; };
+		BB6D70031B77C9940011072D /* MWFeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6D6FFF1B77C9940011072D /* MWFeedInfo.m */; };
+		BB6D70041B77C9940011072D /* MWFeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6D70011B77C9940011072D /* MWFeedItem.m */; };
+		BB6D70091B77C9B00011072D /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6D70061B77C9B00011072D /* NSString+HTML.m */; };
+		BB6D700A1B77C9B00011072D /* NSDate+InternetDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6D70081B77C9B00011072D /* NSDate+InternetDateTime.m */; };
+		BB6D700D1B77CB1D0011072D /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6D700C1B77CB1D0011072D /* GTMNSString+HTML.m */; };
+		BB6D70101B77CB320011072D /* NSString+XMLEntities.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6D700F1B77CB320011072D /* NSString+XMLEntities.m */; };
+		BB6D70121B77CB630011072D /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6D70111B77CB630011072D /* HomeController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,20 +40,29 @@
 		BB45F7EC1A30E9B0006E8AFB /* feedbaz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = feedbaz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB45F7F01A30E9B0006E8AFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB45F7F11A30E9B0006E8AFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BB45F7F31A30E9B0006E8AFB /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		BB45F7F61A30E9B0006E8AFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BB45F7F81A30E9B0006E8AFB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BB45F7FB1A30E9B0006E8AFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		BB45F8011A30E9B0006E8AFB /* feedbazTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = feedbazTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB45F8061A30E9B0006E8AFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB45F8071A30E9B0006E8AFB /* feedbazTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = feedbazTests.swift; sourceTree = "<group>"; };
-		BB45F8111A30EA4D006E8AFB /* BlogPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogPost.swift; sourceTree = "<group>"; };
-		BB45F8131A30EA93006E8AFB /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
-		BB67124F1B778D6200052698 /* NSDate+dateFromInternetDateTimeString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+dateFromInternetDateTimeString.swift"; sourceTree = "<group>"; };
-		BB6712501B778D6200052698 /* RSSFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSFeed.swift; sourceTree = "<group>"; };
-		BB6712511B778D6200052698 /* RSSItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSItem.swift; sourceTree = "<group>"; };
-		BB6712521B778D6200052698 /* RSSParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSParser.swift; sourceTree = "<group>"; };
-		BB6712531B778D6200052698 /* String+imageLinksFromHTML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+imageLinksFromHTML.swift"; sourceTree = "<group>"; };
+		BB6D6FFA1B77C9940011072D /* feedbaz-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "feedbaz-Bridging-Header.h"; sourceTree = "<group>"; };
+		BB6D6FFB1B77C9940011072D /* MWFeedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWFeedParser.h; sourceTree = "<group>"; };
+		BB6D6FFC1B77C9940011072D /* MWFeedParser_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWFeedParser_Private.h; sourceTree = "<group>"; };
+		BB6D6FFD1B77C9940011072D /* MWFeedParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWFeedParser.m; sourceTree = "<group>"; };
+		BB6D6FFE1B77C9940011072D /* MWFeedInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWFeedInfo.h; sourceTree = "<group>"; };
+		BB6D6FFF1B77C9940011072D /* MWFeedInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWFeedInfo.m; sourceTree = "<group>"; };
+		BB6D70001B77C9940011072D /* MWFeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWFeedItem.h; sourceTree = "<group>"; };
+		BB6D70011B77C9940011072D /* MWFeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWFeedItem.m; sourceTree = "<group>"; };
+		BB6D70051B77C9B00011072D /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
+		BB6D70061B77C9B00011072D /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
+		BB6D70071B77C9B00011072D /* NSDate+InternetDateTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+InternetDateTime.h"; sourceTree = "<group>"; };
+		BB6D70081B77C9B00011072D /* NSDate+InternetDateTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+InternetDateTime.m"; sourceTree = "<group>"; };
+		BB6D700B1B77CB1D0011072D /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		BB6D700C1B77CB1D0011072D /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		BB6D700E1B77CB320011072D /* NSString+XMLEntities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XMLEntities.h"; sourceTree = "<group>"; };
+		BB6D700F1B77CB320011072D /* NSString+XMLEntities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XMLEntities.m"; sourceTree = "<group>"; };
+		BB6D70111B77CB630011072D /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				BB3810C11ABF522800ADCE18 /* LandingViewController.swift */,
-				BB45F7F31A30E9B0006E8AFB /* HomeController.swift */,
+				BB6D70111B77CB630011072D /* HomeController.swift */,
 				BB26DB371AC9898E00616A96 /* DetailViewController.swift */,
 			);
 			name = ViewControllers;
@@ -89,22 +98,6 @@
 			children = (
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		BB26DB351AC9894400616A96 /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-				BB45F8131A30EA93006E8AFB /* DownloadManager.swift */,
-			);
-			name = Manager;
-			sourceTree = "<group>";
-		};
-		BB26DB361AC9895300616A96 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				BB45F8111A30EA4D006E8AFB /* BlogPost.swift */,
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		BB45F7E31A30E9B0006E8AFB = {
@@ -128,14 +121,7 @@
 		BB45F7EE1A30E9B0006E8AFB /* feedbaz */ = {
 			isa = PBXGroup;
 			children = (
-				BB6712441B778A5400052698 /* SwiftRSS */,
-				BB67124F1B778D6200052698 /* NSDate+dateFromInternetDateTimeString.swift */,
-				BB6712501B778D6200052698 /* RSSFeed.swift */,
-				BB6712511B778D6200052698 /* RSSItem.swift */,
-				BB6712521B778D6200052698 /* RSSParser.swift */,
-				BB6712531B778D6200052698 /* String+imageLinksFromHTML.swift */,
-				BB26DB361AC9895300616A96 /* Model */,
-				BB26DB351AC9894400616A96 /* Manager */,
+				BB6D6FF91B77C96D0011072D /* MWFeedParser */,
 				BB26DB331AC9891A00616A96 /* Resources */,
 				BB26DB321AC9890A00616A96 /* ViewControllers */,
 				BB45F7F11A30E9B0006E8AFB /* AppDelegate.swift */,
@@ -172,11 +158,27 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		BB6712441B778A5400052698 /* SwiftRSS */ = {
+		BB6D6FF91B77C96D0011072D /* MWFeedParser */ = {
 			isa = PBXGroup;
 			children = (
+				BB6D6FFB1B77C9940011072D /* MWFeedParser.h */,
+				BB6D6FFC1B77C9940011072D /* MWFeedParser_Private.h */,
+				BB6D6FFD1B77C9940011072D /* MWFeedParser.m */,
+				BB6D6FFE1B77C9940011072D /* MWFeedInfo.h */,
+				BB6D6FFF1B77C9940011072D /* MWFeedInfo.m */,
+				BB6D70001B77C9940011072D /* MWFeedItem.h */,
+				BB6D70011B77C9940011072D /* MWFeedItem.m */,
+				BB6D6FFA1B77C9940011072D /* feedbaz-Bridging-Header.h */,
+				BB6D70051B77C9B00011072D /* NSString+HTML.h */,
+				BB6D70061B77C9B00011072D /* NSString+HTML.m */,
+				BB6D70071B77C9B00011072D /* NSDate+InternetDateTime.h */,
+				BB6D70081B77C9B00011072D /* NSDate+InternetDateTime.m */,
+				BB6D700B1B77CB1D0011072D /* GTMNSString+HTML.h */,
+				BB6D700C1B77CB1D0011072D /* GTMNSString+HTML.m */,
+				BB6D700E1B77CB320011072D /* NSString+XMLEntities.h */,
+				BB6D700F1B77CB320011072D /* NSString+XMLEntities.m */,
 			);
-			name = SwiftRSS;
+			name = MWFeedParser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,17 +281,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB6712561B778D6200052698 /* RSSItem.swift in Sources */,
-				BB45F8121A30EA4D006E8AFB /* BlogPost.swift in Sources */,
-				BB45F7F41A30E9B0006E8AFB /* HomeController.swift in Sources */,
-				BB6712541B778D6200052698 /* NSDate+dateFromInternetDateTimeString.swift in Sources */,
+				BB6D70041B77C9940011072D /* MWFeedItem.m in Sources */,
+				BB6D70021B77C9940011072D /* MWFeedParser.m in Sources */,
+				BB6D700A1B77C9B00011072D /* NSDate+InternetDateTime.m in Sources */,
+				BB6D700D1B77CB1D0011072D /* GTMNSString+HTML.m in Sources */,
 				BB45F7F21A30E9B0006E8AFB /* AppDelegate.swift in Sources */,
-				BB6712551B778D6200052698 /* RSSFeed.swift in Sources */,
+				BB6D70091B77C9B00011072D /* NSString+HTML.m in Sources */,
+				BB6D70031B77C9940011072D /* MWFeedInfo.m in Sources */,
+				BB6D70101B77CB320011072D /* NSString+XMLEntities.m in Sources */,
 				BB26DB381AC9898E00616A96 /* DetailViewController.swift in Sources */,
 				BB3810C21ABF522800ADCE18 /* LandingViewController.swift in Sources */,
-				BB6712581B778D6200052698 /* String+imageLinksFromHTML.swift in Sources */,
-				BB45F8141A30EA93006E8AFB /* DownloadManager.swift in Sources */,
-				BB6712571B778D6200052698 /* RSSParser.swift in Sources */,
+				BB6D70121B77CB630011072D /* HomeController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,10 +416,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = feedbaz/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "feedbaz/feedbaz-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -425,10 +430,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = feedbaz/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "feedbaz/feedbaz-Bridging-Header.h";
 			};
 			name = Release;
 		};

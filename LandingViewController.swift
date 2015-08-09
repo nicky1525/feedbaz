@@ -8,16 +8,18 @@
 
 import UIKit
 
-class LandingViewController: UIViewController {
+class LandingViewController: UIViewController, NSURLConnectionDelegate {
     @IBOutlet weak var scrollview: UIScrollView!
     var urlArray:Array<String>!
     var homeController: HomeController!
     var selectedUrl:String!
+    var isValid: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         registerForKeyboardNotifications()
         urlArray = ["http://www.simonewebdesign.it/atom.xml","http://blog.cliomakeup.com/feed/","http://nshipster.com/feed.xml","http://www.sweetandgeek.it/feed/"]
+        isValid = false
     }
     
     @IBAction func btnItemPressed(sender: AnyObject) {
@@ -39,6 +41,40 @@ class LandingViewController: UIViewController {
         var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         scrollview.addGestureRecognizer(tap)
     }
+    
+    func findBlogWithString(url:String) {
+        var standards = ["/?feed=rss", "/?feed=rss2", "/?feed=rdf", "/?feed=atom", "/feed/", "/rss/", "/feed/rss/", "/feed/rss2/", "/feed/rdf/", "/feed/atom/", "/atom.xml"]
+        
+        var request: NSURLRequest
+        var response: NSURLResponse
+        var error: NSError
+        for standard in standards {
+            if isValid == true {
+                selectedUrl = url + String(standard)
+                performSegueWithIdentifier("ShowArticles", sender: self)
+                break
+            }
+            request = NSURLRequest(URL: NSURL(string: url + String(standard))!)
+            var connection =  NSURLConnection(request: request, delegate: self)
+            //connection?.scheduleInRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
+            //connection!.start()
+        }
+    }
+    
+    func connectionDidFinishLoading(connection: NSURLConnection) {
+        connection.cancel()
+    }
+        
+    func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse) {
+        var httpResponse =  response as! NSHTTPURLResponse
+        if(httpResponse.statusCode < 200 || httpResponse.statusCode >= 300) {
+            isValid = false
+        }
+        else {
+            isValid = true
+        }
+    }
+    
     
     func keyboardWillShow(aNotification:NSNotification) {
         var info = NSDictionary(dictionary: aNotification.userInfo!)
@@ -73,6 +109,8 @@ class LandingViewController: UIViewController {
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        scrollview.endEditing(true)
+        findBlogWithString(textField.text)
         return true
     }
     

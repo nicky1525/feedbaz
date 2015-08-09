@@ -17,6 +17,11 @@
 		BB45F8081A30E9B0006E8AFB /* feedbazTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F8071A30E9B0006E8AFB /* feedbazTests.swift */; };
 		BB45F8121A30EA4D006E8AFB /* BlogPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F8111A30EA4D006E8AFB /* BlogPost.swift */; };
 		BB45F8141A30EA93006E8AFB /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F8131A30EA93006E8AFB /* DownloadManager.swift */; };
+		BB6712541B778D6200052698 /* NSDate+dateFromInternetDateTimeString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB67124F1B778D6200052698 /* NSDate+dateFromInternetDateTimeString.swift */; };
+		BB6712551B778D6200052698 /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6712501B778D6200052698 /* RSSFeed.swift */; };
+		BB6712561B778D6200052698 /* RSSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6712511B778D6200052698 /* RSSItem.swift */; };
+		BB6712571B778D6200052698 /* RSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6712521B778D6200052698 /* RSSParser.swift */; };
+		BB6712581B778D6200052698 /* String+imageLinksFromHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6712531B778D6200052698 /* String+imageLinksFromHTML.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +49,11 @@
 		BB45F8071A30E9B0006E8AFB /* feedbazTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = feedbazTests.swift; sourceTree = "<group>"; };
 		BB45F8111A30EA4D006E8AFB /* BlogPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogPost.swift; sourceTree = "<group>"; };
 		BB45F8131A30EA93006E8AFB /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
+		BB67124F1B778D6200052698 /* NSDate+dateFromInternetDateTimeString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+dateFromInternetDateTimeString.swift"; sourceTree = "<group>"; };
+		BB6712501B778D6200052698 /* RSSFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSFeed.swift; sourceTree = "<group>"; };
+		BB6712511B778D6200052698 /* RSSItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSItem.swift; sourceTree = "<group>"; };
+		BB6712521B778D6200052698 /* RSSParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSParser.swift; sourceTree = "<group>"; };
+		BB6712531B778D6200052698 /* String+imageLinksFromHTML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+imageLinksFromHTML.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +128,12 @@
 		BB45F7EE1A30E9B0006E8AFB /* feedbaz */ = {
 			isa = PBXGroup;
 			children = (
+				BB6712441B778A5400052698 /* SwiftRSS */,
+				BB67124F1B778D6200052698 /* NSDate+dateFromInternetDateTimeString.swift */,
+				BB6712501B778D6200052698 /* RSSFeed.swift */,
+				BB6712511B778D6200052698 /* RSSItem.swift */,
+				BB6712521B778D6200052698 /* RSSParser.swift */,
+				BB6712531B778D6200052698 /* String+imageLinksFromHTML.swift */,
 				BB26DB361AC9895300616A96 /* Model */,
 				BB26DB351AC9894400616A96 /* Manager */,
 				BB26DB331AC9891A00616A96 /* Resources */,
@@ -154,6 +170,13 @@
 				BB45F8061A30E9B0006E8AFB /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BB6712441B778A5400052698 /* SwiftRSS */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SwiftRSS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,12 +279,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB6712561B778D6200052698 /* RSSItem.swift in Sources */,
 				BB45F8121A30EA4D006E8AFB /* BlogPost.swift in Sources */,
 				BB45F7F41A30E9B0006E8AFB /* HomeController.swift in Sources */,
+				BB6712541B778D6200052698 /* NSDate+dateFromInternetDateTimeString.swift in Sources */,
 				BB45F7F21A30E9B0006E8AFB /* AppDelegate.swift in Sources */,
+				BB6712551B778D6200052698 /* RSSFeed.swift in Sources */,
 				BB26DB381AC9898E00616A96 /* DetailViewController.swift in Sources */,
 				BB3810C21ABF522800ADCE18 /* LandingViewController.swift in Sources */,
+				BB6712581B778D6200052698 /* String+imageLinksFromHTML.swift in Sources */,
 				BB45F8141A30EA93006E8AFB /* DownloadManager.swift in Sources */,
+				BB6712571B778D6200052698 /* RSSParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +415,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = feedbaz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -397,6 +426,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = feedbaz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

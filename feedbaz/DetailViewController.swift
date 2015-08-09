@@ -9,11 +9,18 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-    var blogPost: BlogPost?
+    var blogPost: RSSItem?
+    var simoneBlogPost: BlogPost?
+    var isSimone:Bool!
     @IBOutlet weak var webView: UIWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.webView.loadRequest(NSURLRequest(URL: NSURL(string: blogPost!.postLink)!))
+        if isSimone == true {
+            self.webView.loadRequest(NSURLRequest(URL: NSURL(string: simoneBlogPost!.postLink)!))
+        }
+        else {
+            self.webView.loadRequest(NSURLRequest(URL:blogPost!.link!))
+        }
     }
     
    

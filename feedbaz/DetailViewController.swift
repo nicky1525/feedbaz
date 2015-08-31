@@ -14,6 +14,6 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.webView.loadRequest(NSURLRequest(URL: NSURL(string:blogPost!.link!)!))
+        self.webView.loadRequest(NSURLRequest(URL: NSURL(string:blogPost!.identifier!)!))
     }
 }

@@ -22,6 +22,10 @@
 		BB6D700D1B77CB1D0011072D /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6D700C1B77CB1D0011072D /* GTMNSString+HTML.m */; };
 		BB6D70101B77CB320011072D /* NSString+XMLEntities.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6D700F1B77CB320011072D /* NSString+XMLEntities.m */; };
 		BB6D70121B77CB630011072D /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6D70111B77CB630011072D /* HomeController.swift */; };
+		BB878C621B946F0200118F75 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = BB878C5D1B946F0200118F75 /* TFHpple.m */; };
+		BB878C631B946F0200118F75 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BB878C5F1B946F0200118F75 /* TFHppleElement.m */; };
+		BB878C641B946F0200118F75 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = BB878C611B946F0200118F75 /* XPathQuery.m */; };
+		BB878C661B9470DA00118F75 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB878C651B9470DA00118F75 /* libxml2.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +67,13 @@
 		BB6D700E1B77CB320011072D /* NSString+XMLEntities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XMLEntities.h"; sourceTree = "<group>"; };
 		BB6D700F1B77CB320011072D /* NSString+XMLEntities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XMLEntities.m"; sourceTree = "<group>"; };
 		BB6D70111B77CB630011072D /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		BB878C5C1B946F0200118F75 /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
+		BB878C5D1B946F0200118F75 /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHpple.m; sourceTree = "<group>"; };
+		BB878C5E1B946F0200118F75 /* TFHppleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHppleElement.h; sourceTree = "<group>"; };
+		BB878C5F1B946F0200118F75 /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHppleElement.m; sourceTree = "<group>"; };
+		BB878C601B946F0200118F75 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
+		BB878C611B946F0200118F75 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
+		BB878C651B9470DA00118F75 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB878C661B9470DA00118F75 /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +115,7 @@
 		BB45F7E31A30E9B0006E8AFB = {
 			isa = PBXGroup;
 			children = (
+				BB878C651B9470DA00118F75 /* libxml2.dylib */,
 				BB45F7EE1A30E9B0006E8AFB /* feedbaz */,
 				BB45F8041A30E9B0006E8AFB /* feedbazTests */,
 				BB45F7ED1A30E9B0006E8AFB /* Products */,
@@ -121,6 +134,7 @@
 		BB45F7EE1A30E9B0006E8AFB /* feedbaz */ = {
 			isa = PBXGroup;
 			children = (
+				BB878C5B1B946EF500118F75 /* Hpple */,
 				BB6D6FF91B77C96D0011072D /* MWFeedParser */,
 				BB26DB331AC9891A00616A96 /* Resources */,
 				BB26DB321AC9890A00616A96 /* ViewControllers */,
@@ -179,6 +193,19 @@
 				BB6D700F1B77CB320011072D /* NSString+XMLEntities.m */,
 			);
 			name = MWFeedParser;
+			sourceTree = "<group>";
+		};
+		BB878C5B1B946EF500118F75 /* Hpple */ = {
+			isa = PBXGroup;
+			children = (
+				BB878C5C1B946F0200118F75 /* TFHpple.h */,
+				BB878C5D1B946F0200118F75 /* TFHpple.m */,
+				BB878C5E1B946F0200118F75 /* TFHppleElement.h */,
+				BB878C5F1B946F0200118F75 /* TFHppleElement.m */,
+				BB878C601B946F0200118F75 /* XPathQuery.h */,
+				BB878C611B946F0200118F75 /* XPathQuery.m */,
+			);
+			name = Hpple;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,10 +311,13 @@
 				BB6D70041B77C9940011072D /* MWFeedItem.m in Sources */,
 				BB6D70021B77C9940011072D /* MWFeedParser.m in Sources */,
 				BB6D700A1B77C9B00011072D /* NSDate+InternetDateTime.m in Sources */,
+				BB878C631B946F0200118F75 /* TFHppleElement.m in Sources */,
 				BB6D700D1B77CB1D0011072D /* GTMNSString+HTML.m in Sources */,
 				BB45F7F21A30E9B0006E8AFB /* AppDelegate.swift in Sources */,
 				BB6D70091B77C9B00011072D /* NSString+HTML.m in Sources */,
 				BB6D70031B77C9940011072D /* MWFeedInfo.m in Sources */,
+				BB878C641B946F0200118F75 /* XPathQuery.m in Sources */,
+				BB878C621B946F0200118F75 /* TFHpple.m in Sources */,
 				BB6D70101B77CB320011072D /* NSString+XMLEntities.m in Sources */,
 				BB26DB381AC9898E00616A96 /* DetailViewController.swift in Sources */,
 				BB3810C21ABF522800ADCE18 /* LandingViewController.swift in Sources */,
@@ -417,6 +447,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SDKROOT)/usr/include/libxml2",
+				);
 				INFOPLIST_FILE = feedbaz/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -431,6 +466,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SDKROOT)/usr/include/libxml2",
+				);
 				INFOPLIST_FILE = feedbaz/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

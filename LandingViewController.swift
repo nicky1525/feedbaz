@@ -42,25 +42,47 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
         scrollview.addGestureRecognizer(tap)
     }
     
-    func findBlogWithString(url:String) {
-        var standards = ["/?feed=rss", "/?feed=rss2", "/?feed=rdf", "/?feed=atom", "/feed/", "/rss/", "/feed/rss/", "/feed/rss2/", "/feed/rdf/", "/feed/atom/", "/atom.xml"]
-        
-        var request: NSURLRequest
-        var response: NSURLResponse
-        var error: NSError
-        for standard in standards {
-            if isValid == true {
-                selectedUrl = url + String(standard)
-                performSegueWithIdentifier("ShowArticles", sender: self)
-                break
+    func findRSSWithString(url:String) {
+        if let blogsUrl = NSURL(string:  "http://\(url)") {
+            if let blogHtmlData: NSData = NSData(contentsOfURL: blogsUrl) { // may return nil, too
+                var blogHtmlData: NSData = NSData(contentsOfURL: blogsUrl)!
+                var blogParser: TFHpple = TFHpple(HTMLData: blogHtmlData)
+                
+                //looking for this node to find rss feed link: <link rel="alternate" type="application/rss+xml" href="http://example.com/feed" />
+                var blogXpathQueryString: String = "//link[@rel='alternate'][@type='application/rss+xml']"
+                var blogNodes: [AnyObject] = blogParser.searchWithXPathQuery(blogXpathQueryString)
+                if blogNodes.count == 0 {
+                    blogXpathQueryString = "//link[@rel='alternate'][@type='application/atom+xml']"
+                    blogNodes = blogParser.searchWithXPathQuery(blogXpathQueryString)
+                }
+                if blogNodes.count > 0 {
+                    var match: String = String()
+                    match = blogNodes[0].objectForKey("href")
+                    if match != "" {
+                        selectedUrl = match
+                        performSegueWithIdentifier("ShowArticles", sender: self)
+                    }
+                    else {
+                        var alert = UIAlertController(title: "Error", message: "No feed RSS found for the specified URL", preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    }
+                }
             }
-            request = NSURLRequest(URL: NSURL(string: url + String(standard))!)
-            var connection =  NSURLConnection(request: request, delegate: self)
-            //connection?.scheduleInRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
-            //connection!.start()
+            else {
+                var alert = UIAlertController(title: "Error", message: "Please meake sure you entered a valid URL", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
+        else {
+            var alert = UIAlertController(title: "Error", message: "Please meake sure you entered a valid URL", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
-    
+
+
     func connectionDidFinishLoading(connection: NSURLConnection) {
         connection.cancel()
     }
@@ -110,7 +132,7 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         scrollview.endEditing(true)
-        findBlogWithString(textField.text)
+        findRSSWithString(textField.text)
         return true
     }
     

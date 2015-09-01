@@ -15,6 +15,8 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     var post: MWFeedItem?
     var blogPosts : NSMutableArray!
     var blogTitle: String!
+    var reachability:Reachability!
+    var hasShownConnectionError:Bool!
 
     func setBlogPost(post:MWFeedItem) {
         self.post = post
@@ -23,6 +25,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         blogPosts = NSMutableArray()
+        hasShownConnectionError = false
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -33,6 +36,13 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
             feedParser.feedParseType = ParseTypeFull
             feedParser.connectionType = ConnectionTypeSynchronously
             feedParser.parse();
+        
+        reachability = Reachability.reachabilityForInternetConnection()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged:", name: ReachabilityChangedNotification, object: reachability)
+        
+        reachability.startNotifier()
+
     }
     
     // MARK: MWFeedParserDelegate
@@ -93,6 +103,40 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         if segue.identifier != "ShowDetails"{ return }
         let viewController:DetailViewController = segue.destinationViewController as!DetailViewController
         viewController.blogPost = post
+    }
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        if !reachability.isReachable() {
+            hasShownConnectionError = false
+            connectionLost()
+            return false
+        }
+        return true
+    }
+    
+    // MARK: Reachability
+    func reachabilityChanged(note: NSNotification) {
+        
+        let reachability = note.object as! Reachability
+        
+        if reachability.isReachable() {
+            if reachability.isReachableViaWiFi() {
+                println("Reachable via WiFi")
+            } else {
+                println("Reachable via Cellular")
+            }
+        } else {
+            println("Not reachable")
+        }
+    }
+    
+    func connectionLost() {
+        if hasShownConnectionError == false {
+            hasShownConnectionError = true;
+            var alert = UIAlertController(title: "No Network", message: "Please check your internet connection and try again later.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {

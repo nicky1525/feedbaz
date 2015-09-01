@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A8791B331B95C5BD0076F4A6 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8791B321B95C5BD0076F4A6 /* Reachability.swift */; };
 		BB26DB381AC9898E00616A96 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB26DB371AC9898E00616A96 /* DetailViewController.swift */; };
 		BB3810C21ABF522800ADCE18 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3810C11ABF522800ADCE18 /* LandingViewController.swift */; };
 		BB45F7F21A30E9B0006E8AFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F7F11A30E9B0006E8AFB /* AppDelegate.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A8791B321B95C5BD0076F4A6 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		BB26DB371AC9898E00616A96 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		BB3810C11ABF522800ADCE18 /* LandingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LandingViewController.swift; path = ../LandingViewController.swift; sourceTree = "<group>"; };
 		BB45F7EC1A30E9B0006E8AFB /* feedbaz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = feedbaz.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +97,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A8791B291B95BEBD0076F4A6 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				A8791B321B95C5BD0076F4A6 /* Reachability.swift */,
+			);
+			name = Reachability;
+			sourceTree = "<group>";
+		};
 		BB26DB321AC9890A00616A96 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +144,8 @@
 		BB45F7EE1A30E9B0006E8AFB /* feedbaz */ = {
 			isa = PBXGroup;
 			children = (
+				BB6D6FFA1B77C9940011072D /* feedbaz-Bridging-Header.h */,
+				A8791B291B95BEBD0076F4A6 /* Reachability */,
 				BB878C5B1B946EF500118F75 /* Hpple */,
 				BB6D6FF91B77C96D0011072D /* MWFeedParser */,
 				BB26DB331AC9891A00616A96 /* Resources */,
@@ -182,7 +194,6 @@
 				BB6D6FFF1B77C9940011072D /* MWFeedInfo.m */,
 				BB6D70001B77C9940011072D /* MWFeedItem.h */,
 				BB6D70011B77C9940011072D /* MWFeedItem.m */,
-				BB6D6FFA1B77C9940011072D /* feedbaz-Bridging-Header.h */,
 				BB6D70051B77C9B00011072D /* NSString+HTML.h */,
 				BB6D70061B77C9B00011072D /* NSString+HTML.m */,
 				BB6D70071B77C9B00011072D /* NSDate+InternetDateTime.h */,
@@ -321,6 +332,7 @@
 				BB6D70101B77CB320011072D /* NSString+XMLEntities.m in Sources */,
 				BB26DB381AC9898E00616A96 /* DetailViewController.swift in Sources */,
 				BB3810C21ABF522800ADCE18 /* LandingViewController.swift in Sources */,
+				A8791B331B95C5BD0076F4A6 /* Reachability.swift in Sources */,
 				BB6D70121B77CB630011072D /* HomeController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

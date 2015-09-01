@@ -14,18 +14,42 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     var homeController: HomeController!
     var selectedUrl:String!
     var isValid: Bool!
+    var reachability:Reachability!
+    var hasShownConnectionError:Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         registerForKeyboardNotifications()
         urlArray = ["http://www.simonewebdesign.it/atom.xml","http://blog.cliomakeup.com/feed/","http://nshipster.com/feed.xml","http://www.sweetandgeek.it/feed/"]
         isValid = false
+        hasShownConnectionError = false
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        reachability = Reachability.reachabilityForInternetConnection()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged:", name: ReachabilityChangedNotification, object: reachability)
+        
+        reachability.startNotifier()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        reachability.stopNotifier()
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        super.viewWillDisappear(animated)
     }
     
     @IBAction func btnItemPressed(sender: AnyObject) {
         var button = sender as! UIButton
         selectedUrl = urlArray[button.tag - 1]
-        performSegueWithIdentifier("ShowArticles", sender: self)
+        if reachability.isReachable() {
+            performSegueWithIdentifier("ShowArticles", sender: self)
+        }
+        else {
+            hasShownConnectionError = false
+            connectionLost()
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -43,30 +67,37 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     }
     
     func findRSSWithString(url:String) {
-        if let blogsUrl = NSURL(string:  "http://\(url)") {
-            if let blogHtmlData: NSData = NSData(contentsOfURL: blogsUrl) { // may return nil, too
-                var blogHtmlData: NSData = NSData(contentsOfURL: blogsUrl)!
-                var blogParser: TFHpple = TFHpple(HTMLData: blogHtmlData)
-                
-                //looking for this node to find rss feed link: <link rel="alternate" type="application/rss+xml" href="http://example.com/feed" />
-                var blogXpathQueryString: String = "//link[@rel='alternate'][@type='application/rss+xml']"
-                var blogNodes: [AnyObject] = blogParser.searchWithXPathQuery(blogXpathQueryString)
-                if blogNodes.count == 0 {
-                    blogXpathQueryString = "//link[@rel='alternate'][@type='application/atom+xml']"
-                    blogNodes = blogParser.searchWithXPathQuery(blogXpathQueryString)
+        if (reachability.isReachable()) {
+            if let blogsUrl = NSURL(string:  "http://\(url)") {
+                if let blogHtmlData: NSData = NSData(contentsOfURL: blogsUrl) { // may return nil, too
+                    var blogHtmlData: NSData = NSData(contentsOfURL: blogsUrl)!
+                    var blogParser: TFHpple = TFHpple(HTMLData: blogHtmlData)
+                    
+                    //looking for this node to find rss feed link: <link rel="alternate" type="application/rss+xml" href="http://example.com/feed" />
+                    var blogXpathQueryString: String = "//link[@rel='alternate'][@type='application/rss+xml']"
+                    var blogNodes: [AnyObject] = blogParser.searchWithXPathQuery(blogXpathQueryString)
+                    if blogNodes.count == 0 {
+                        blogXpathQueryString = "//link[@rel='alternate'][@type='application/atom+xml']"
+                        blogNodes = blogParser.searchWithXPathQuery(blogXpathQueryString)
+                    }
+                    if blogNodes.count > 0 {
+                        var match: String = String()
+                        match = blogNodes[0].objectForKey("href")
+                        if match != "" {
+                            selectedUrl = match
+                            performSegueWithIdentifier("ShowArticles", sender: self)
+                        }
+                        else {
+                            var alert = UIAlertController(title: "Error", message: "No feed RSS found for the specified URL", preferredStyle: UIAlertControllerStyle.Alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                            self.presentViewController(alert, animated: true, completion: nil)
+                        }
+                    }
                 }
-                if blogNodes.count > 0 {
-                    var match: String = String()
-                    match = blogNodes[0].objectForKey("href")
-                    if match != "" {
-                        selectedUrl = match
-                        performSegueWithIdentifier("ShowArticles", sender: self)
-                    }
-                    else {
-                        var alert = UIAlertController(title: "Error", message: "No feed RSS found for the specified URL", preferredStyle: UIAlertControllerStyle.Alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                        self.presentViewController(alert, animated: true, completion: nil)
-                    }
+                else {
+                    var alert = UIAlertController(title: "Error", message: "Please meake sure you entered a valid URL", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
                 }
             }
             else {
@@ -74,30 +105,42 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
             }
+
         }
         else {
-            var alert = UIAlertController(title: "Error", message: "Please meake sure you entered a valid URL", preferredStyle: UIAlertControllerStyle.Alert)
+            hasShownConnectionError = false
+            connectionLost()
+        }
+    }
+    
+    
+    // MARK: Reachability
+    func reachabilityChanged(note: NSNotification) {
+        
+        let reachability = note.object as! Reachability
+        
+        if reachability.isReachable() {
+            if reachability.isReachableViaWiFi() {
+                println("Reachable via WiFi")
+            } else {
+                println("Reachable via Cellular")
+            }
+        } else {
+            println("Not reachable")
+        }
+    }
+    
+    func connectionLost() {
+        if hasShownConnectionError == false {
+            hasShownConnectionError = true;
+            var alert = UIAlertController(title: "No Network", message: "Please check your internet connection and try again later.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
-
-
-    func connectionDidFinishLoading(connection: NSURLConnection) {
-        connection.cancel()
-    }
-        
-    func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse) {
-        var httpResponse =  response as! NSHTTPURLResponse
-        if(httpResponse.statusCode < 200 || httpResponse.statusCode >= 300) {
-            isValid = false
-        }
-        else {
-            isValid = true
-        }
-    }
     
     
+    // MARK: KeyboardNotifications
     func keyboardWillShow(aNotification:NSNotification) {
         var info = NSDictionary(dictionary: aNotification.userInfo!)
         var kbSize = info.objectForKey(UIKeyboardFrameBeginUserInfoKey)?.size

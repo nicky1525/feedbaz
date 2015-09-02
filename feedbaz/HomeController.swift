@@ -18,7 +18,8 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     var blogDescr: String!
     var reachability:Reachability!
     var hasShownConnectionError:Bool!
-    var historyDict: NSMutableDictionary!
+
+    var favouriteArray: NSMutableArray!
 
     func setBlogPost(post:MWFeedItem) {
         self.post = post
@@ -28,7 +29,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         super.viewDidLoad()
         blogPosts = NSMutableArray()
         hasShownConnectionError = false
-        historyDict = NSMutableDictionary()
+        favouriteArray = NSMutableArray()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -45,11 +46,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged:", name: ReachabilityChangedNotification, object: reachability)
         
         reachability.startNotifier()
-        
-        if let data = NSUserDefaults.standardUserDefaults().objectForKey("history") as? NSData {
-            historyDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSMutableDictionary
-        }
-
+        favouriteArray = PreferenceManager.sharedInstance.getFavourites()
     }
     
     // MARK: MWFeedParserDelegate
@@ -66,7 +63,6 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
             lblBlogTitle.text = blogTitle
             lblBlogTitle.hidden = false
         }
-         addToHistory()
     }
     
     func feedParserDidStart(parser: MWFeedParser!) {
@@ -108,22 +104,8 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         return indexPath
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier != "ShowDetails"{ return }
-        let viewController:DetailViewController = segue.destinationViewController as!DetailViewController
-        viewController.blogPost = post
-    }
-    
-    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
-        if !reachability.isReachable() {
-            hasShownConnectionError = false
-            connectionLost()
-            return false
-        }
-        return true
-    }
-    
-    func addToHistory() {
+    // MARK: IBActions
+    @IBAction func btnAddToFavouritesPressed(sender: AnyObject) {
         if blogDescr == nil {
             blogDescr = ""
         }
@@ -134,18 +116,19 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         formatter.dateFormat = "HH:mm"
         var hour = formatter.stringFromDate(date)
         var blogDict = ["title": blogTitle, "description": blogDescr, "link": strUrl, "time": hour]
-        var array:NSMutableArray? = historyDict.objectForKey(datestr) as? NSMutableArray
-        if array == nil {
-            array = NSMutableArray()
+        if favouriteArray!.count > 0 {
+            for blog in favouriteArray {
+                if (favouriteArray.objectAtIndex(0).valueForKey("title") as! String) != blogTitle {
+                    favouriteArray .addObject(blogDict)
+                }
+            }
         }
-        array!.addObject(blogDict)
-        historyDict.setObject(array!, forKey:datestr)
-        let data = NSKeyedArchiver.archivedDataWithRootObject(historyDict)
-        NSUserDefaults.standardUserDefaults().setObject(data, forKey: "history")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        else {
+            favouriteArray.addObject(blogDict)
+        }
+        PreferenceManager.sharedInstance.saveFavourites(favouriteArray)
     }
 
-    
     // MARK: Reachability
     func reachabilityChanged(note: NSNotification) {
         
@@ -171,9 +154,29 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         }
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier != "ShowDetails"{ return }
+        let viewController:DetailViewController = segue.destinationViewController as!DetailViewController
+        viewController.blogPost = post
+        viewController.blogTitle = blogTitle
+        viewController.blogUrl = strUrl
+    }
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        if !reachability.isReachable() {
+            hasShownConnectionError = false
+            connectionLost()
+            return false
+        }
+        return true
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+
 }
 

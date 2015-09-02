@@ -113,7 +113,6 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
         }
     }
     
-    
     // MARK: Reachability
     func reachabilityChanged(note: NSNotification) {
         
@@ -138,7 +137,6 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
-    
     
     // MARK: KeyboardNotifications
     func keyboardWillShow(aNotification:NSNotification) {

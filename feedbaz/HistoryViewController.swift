@@ -88,6 +88,38 @@ class HistoryViewController: UIViewController {
         return historyDict.allKeys[section] as? String
     }
     
+    func tableView(tableView: UITableView,
+        commitEditingStyle editingStyle: UITableViewCellEditingStyle,
+        forRowAtIndexPath indexPath: NSIndexPath) {
+            let blogs: NSArray = historyDict.allKeys
+            var key: String = blogs.objectAtIndex(indexPath.section) as! String
+            var blogForSection = historyDict.objectForKey(key) as! NSMutableArray
+            var blog = blogForSection.objectAtIndex(indexPath.row) as! NSDictionary
+            switch editingStyle {
+            case .Delete:
+                // remove the deleted item from the model
+                blogForSection.removeObject(blog)
+                let data = NSKeyedArchiver.archivedDataWithRootObject(historyDict)
+                NSUserDefaults.standardUserDefaults().setObject(data, forKey: "history")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                
+                // remove the deleted item from the `UITableView`
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            default:
+                return
+            }
+    }
+    
+    func tableView(tableView: UITableView,
+        editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+            return UITableViewCellEditingStyle.Delete
+    }
+    
+    func tableView(tableView: UITableView,
+    canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showHistoryDetails" {
             var controller: HomeController = segue.destinationViewController as! HomeController
@@ -95,8 +127,31 @@ class HistoryViewController: UIViewController {
         }
     }
     
+    @IBAction func editButtonPressed(sender: AnyObject) {
+        var button:UIBarButtonItem = sender as! UIBarButtonItem
+        if tableview.editing {
+            tableview.setEditing(false, animated: true)
+            button.title = "Edit"
+        }
+        else {
+            tableview.setEditing(true, animated: true)
+            button.title = "Done"
+            //[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
+        }
+    }
+    
+//    func toggleEditing() {
+//        tableView.setEditing(!self.isEditing animated:YES);
+//    }
+
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+    }
     
 
+    
+    
     
 
     /*

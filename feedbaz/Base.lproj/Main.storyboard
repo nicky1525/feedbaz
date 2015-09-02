@@ -83,7 +83,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="History" id="kDu-X9-rrW"/>
-                    <navigationItem key="navigationItem" id="QeV-bZ-Kc5"/>
+                    <navigationItem key="navigationItem" id="QeV-bZ-Kc5">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="mVM-EE-oWd">
+                            <connections>
+                                <action selector="editButtonPressed:" destination="Xsx-jw-rVY" id="R1g-mL-7M3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableview" destination="R3C-01-334" id="rdh-Qu-0mt"/>
                     </connections>

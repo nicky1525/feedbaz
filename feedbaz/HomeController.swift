@@ -15,8 +15,10 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     var post: MWFeedItem?
     var blogPosts : NSMutableArray!
     var blogTitle: String!
+    var blogDescr: String!
     var reachability:Reachability!
     var hasShownConnectionError:Bool!
+    var historyDict: NSMutableDictionary!
 
     func setBlogPost(post:MWFeedItem) {
         self.post = post
@@ -26,6 +28,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         super.viewDidLoad()
         blogPosts = NSMutableArray()
         hasShownConnectionError = false
+        historyDict = NSMutableDictionary()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -34,7 +37,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
             var feedParser = MWFeedParser(feedURL: NSURL(string: strUrl))
             feedParser.delegate = self
             feedParser.feedParseType = ParseTypeFull
-            feedParser.connectionType = ConnectionTypeSynchronously
+            feedParser.connectionType = ConnectionTypeAsynchronously
             feedParser.parse();
         
         reachability = Reachability.reachabilityForInternetConnection()
@@ -42,6 +45,10 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged:", name: ReachabilityChangedNotification, object: reachability)
         
         reachability.startNotifier()
+        
+        if let data = NSUserDefaults.standardUserDefaults().objectForKey("history") as? NSData {
+            historyDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSMutableDictionary
+        }
 
     }
     
@@ -59,6 +66,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
             lblBlogTitle.text = blogTitle
             lblBlogTitle.hidden = false
         }
+         addToHistory()
     }
     
     func feedParserDidStart(parser: MWFeedParser!) {
@@ -66,6 +74,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     
     func feedParser(parser: MWFeedParser!, didParseFeedInfo info: MWFeedInfo!) {
         blogTitle = info.title
+        blogDescr = info.summary
     }
     
     // MARK: UITableViewDelegate
@@ -113,6 +122,29 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         }
         return true
     }
+    
+    func addToHistory() {
+        if blogDescr == nil {
+            blogDescr = ""
+        }
+        var date = NSDate()
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = "dd MMMM yy"
+        var datestr = formatter.stringFromDate(date)
+        formatter.dateFormat = "HH:mm"
+        var hour = formatter.stringFromDate(date)
+        var blogDict = ["title": blogTitle, "description": blogDescr, "link": strUrl, "time": hour]
+        var array:NSMutableArray? = historyDict.objectForKey(datestr) as? NSMutableArray
+        if array == nil {
+            array = NSMutableArray()
+        }
+        array!.addObject(blogDict)
+        historyDict.setObject(array!, forKey:datestr)
+        let data = NSKeyedArchiver.archivedDataWithRootObject(historyDict)
+        NSUserDefaults.standardUserDefaults().setObject(data, forKey: "history")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+
     
     // MARK: Reachability
     func reachabilityChanged(note: NSNotification) {

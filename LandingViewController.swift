@@ -20,7 +20,7 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerForKeyboardNotifications()
-        urlArray = ["http://www.simonewebdesign.it/atom.xml","http://blog.cliomakeup.com/feed/","http://nshipster.com/feed.xml","http://www.sweetandgeek.it/feed/"]
+        urlArray = ["http://www.simonewebdesign.it/atom.xml","http://www.aladyinlondon.com/feed","http://nshipster.com/feed.xml","http://www.sweetandgeek.it/feed/"]
         isValid = false
         hasShownConnectionError = false
     }

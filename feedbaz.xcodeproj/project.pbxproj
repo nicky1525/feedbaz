@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A8791B331B95C5BD0076F4A6 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8791B321B95C5BD0076F4A6 /* Reachability.swift */; };
+		A8791B351B95EAD30076F4A6 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8791B341B95EAD30076F4A6 /* HistoryViewController.swift */; };
 		BB26DB381AC9898E00616A96 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB26DB371AC9898E00616A96 /* DetailViewController.swift */; };
 		BB3810C21ABF522800ADCE18 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3810C11ABF522800ADCE18 /* LandingViewController.swift */; };
 		BB45F7F21A30E9B0006E8AFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F7F11A30E9B0006E8AFB /* AppDelegate.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		A8791B321B95C5BD0076F4A6 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		A8791B341B95EAD30076F4A6 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		BB26DB371AC9898E00616A96 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		BB3810C11ABF522800ADCE18 /* LandingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LandingViewController.swift; path = ../LandingViewController.swift; sourceTree = "<group>"; };
 		BB45F7EC1A30E9B0006E8AFB /* feedbaz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = feedbaz.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +113,7 @@
 				BB3810C11ABF522800ADCE18 /* LandingViewController.swift */,
 				BB6D70111B77CB630011072D /* HomeController.swift */,
 				BB26DB371AC9898E00616A96 /* DetailViewController.swift */,
+				A8791B341B95EAD30076F4A6 /* HistoryViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				BB6D700D1B77CB1D0011072D /* GTMNSString+HTML.m in Sources */,
 				BB45F7F21A30E9B0006E8AFB /* AppDelegate.swift in Sources */,
 				BB6D70091B77C9B00011072D /* NSString+HTML.m in Sources */,
+				A8791B351B95EAD30076F4A6 /* HistoryViewController.swift in Sources */,
 				BB6D70031B77C9940011072D /* MWFeedInfo.m in Sources */,
 				BB878C641B946F0200118F75 /* XPathQuery.m in Sources */,
 				BB878C621B946F0200118F75 /* TFHpple.m in Sources */,

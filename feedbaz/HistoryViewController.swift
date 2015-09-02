@@ -25,7 +25,12 @@ class HistoryViewController: UIViewController {
             historyDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSMutableDictionary
             tableview.reloadData()
         }
-
+        if historyDict.allKeys.count == 0 {
+            navigationItem.rightBarButtonItem?.enabled = false
+        }
+        else {
+            navigationItem.rightBarButtonItem?.enabled = true
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -132,18 +137,39 @@ class HistoryViewController: UIViewController {
         if tableview.editing {
             tableview.setEditing(false, animated: true)
             button.title = "Edit"
+            navigationItem.leftBarButtonItem = nil
         }
         else {
             tableview.setEditing(true, animated: true)
             button.title = "Done"
-            //[self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
+            var clearButton = UIBarButtonItem(title: "Clear All", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("clearAllPressed"))
+            navigationItem.leftBarButtonItem = clearButton
+        }
+        if historyDict.allKeys.count == 0 {
+            navigationItem.rightBarButtonItem?.enabled = false
+        }
+        else {
+            navigationItem.rightBarButtonItem?.enabled = true
         }
     }
     
-//    func toggleEditing() {
-//        tableView.setEditing(!self.isEditing animated:YES);
-//    }
+    func clearAllPressed() {
+        var alert = UIAlertController(title:nil, message: "Are you sure you want to clear all the history?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
+            self.clearAllHistory()
+        }))
+        alert.addAction(UIAlertAction (title: "CANCEL", style: UIAlertActionStyle.Default, handler:nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
 
+    func clearAllHistory() {
+        historyDict = NSMutableDictionary()
+        let data = NSKeyedArchiver.archivedDataWithRootObject(historyDict)
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("history")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        tableview.reloadData()
+        navigationItem.leftBarButtonItem = nil
+    }
     
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)

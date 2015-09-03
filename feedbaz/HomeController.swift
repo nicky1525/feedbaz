@@ -10,7 +10,7 @@ import UIKit
 
 class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate, UITableViewDataSource, MWFeedParserDelegate {
     @IBOutlet weak var tableview: UITableView!
-    @IBOutlet weak var lblBlogTitle: UILabel!
+    //@IBOutlet weak var lblBlogTitle: UILabel!
     var strUrl: String!
     var post: MWFeedItem?
     var blogPosts : NSMutableArray!
@@ -20,6 +20,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     var hasShownConnectionError:Bool!
 
     var favouriteArray: NSMutableArray!
+    var favouriteArticles: NSMutableArray!
 
     func setBlogPost(post:MWFeedItem) {
         self.post = post
@@ -30,6 +31,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         blogPosts = NSMutableArray()
         hasShownConnectionError = false
         favouriteArray = NSMutableArray()
+        favouriteArticles = NSMutableArray()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -44,9 +46,9 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         reachability = Reachability.reachabilityForInternetConnection()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged:", name: ReachabilityChangedNotification, object: reachability)
-        
         reachability.startNotifier()
         favouriteArray = PreferenceManager.sharedInstance.getFavourites()
+        favouriteArticles = PreferenceManager.sharedInstance.getArticles()
     }
     
     // MARK: MWFeedParserDelegate
@@ -60,8 +62,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     func feedParserDidFinish(parser: MWFeedParser!) {
         tableview.reloadData()
         if blogTitle != nil {
-            lblBlogTitle.text = blogTitle
-            lblBlogTitle.hidden = false
+            self.title = blogTitle
         }
     }
     
@@ -94,8 +95,11 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
             var date = cell.viewWithTag(3) as! UILabel
             
             var formatter = NSDateFormatter()
-            formatter.dateFormat = "dd/MM/yy"
+            formatter.dateFormat = "dd MMMM yy"
             date.text = formatter.stringFromDate(blogPost.date!)
+        
+            var btnFavourite = cell.viewWithTag(4) as! UIButton
+            btnFavourite.addTarget(self, action: Selector("addArticleToFavourites:"), forControlEvents: UIControlEvents.TouchUpInside)
         return cell
     }
     
@@ -105,6 +109,27 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     }
     
     // MARK: IBActions
+    
+    func addArticleToFavourites(sender:AnyObject) {
+        var button = sender as! UIButton
+        var cell = button.superview!.superview as! UITableViewCell
+        var index = tableview.indexPathForCell(cell)
+        var article = blogPosts.objectAtIndex(index!.row) as! MWFeedItem
+        var blogPostDict = ["title": article.title, "author": blogTitle, "link": article.identifier, "update": article.date]
+        if favouriteArticles!.count > 0 {
+            for i in 0 ... favouriteArticles.count {
+                if (favouriteArticles.objectAtIndex(i).valueForKey("title") as! String) != article.title {
+                    favouriteArticles.addObject(blogPostDict)
+                }
+            }
+        }
+        else {
+            favouriteArticles.addObject(blogPostDict)
+        }
+        
+        PreferenceManager.sharedInstance.saveArticles(favouriteArticles)
+    }
+    
     @IBAction func btnAddToFavouritesPressed(sender: AnyObject) {
         if blogDescr == nil {
             blogDescr = ""
@@ -117,9 +142,9 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         var hour = formatter.stringFromDate(date)
         var blogDict = ["title": blogTitle, "description": blogDescr, "link": strUrl, "time": hour]
         if favouriteArray!.count > 0 {
-            for blog in favouriteArray {
-                if (favouriteArray.objectAtIndex(0).valueForKey("title") as! String) != blogTitle {
-                    favouriteArray .addObject(blogDict)
+            for i in 0 ... favouriteArray.count {
+                if (favouriteArray.objectAtIndex(i).valueForKey("title") as! String) != blogTitle {
+                    favouriteArray.addObject(blogDict)
                 }
             }
         }
@@ -175,8 +200,5 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-
 }
 

@@ -16,6 +16,7 @@ class HistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         historyDict = NSMutableDictionary()
+        self.title = "History"
                 // Do any additional setup after loading the view.
     }
     

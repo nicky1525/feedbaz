@@ -152,6 +152,7 @@
 		BB45F7EE1A30E9B0006E8AFB /* feedbaz */ = {
 			isa = PBXGroup;
 			children = (
+				A8791B381B9732080076F4A6 /* PreferenceManager.swift */,
 				BB6D6FFA1B77C9940011072D /* feedbaz-Bridging-Header.h */,
 				A8791B291B95BEBD0076F4A6 /* Reachability */,
 				BB878C5B1B946EF500118F75 /* Hpple */,
@@ -163,7 +164,6 @@
 				BB45F7F81A30E9B0006E8AFB /* Images.xcassets */,
 				BB45F7FA1A30E9B0006E8AFB /* LaunchScreen.xib */,
 				BB45F7EF1A30E9B0006E8AFB /* Supporting Files */,
-				A8791B381B9732080076F4A6 /* PreferenceManager.swift */,
 			);
 			path = feedbaz;
 			sourceTree = "<group>";

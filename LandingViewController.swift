@@ -20,7 +20,6 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerForKeyboardNotifications()
-        urlArray = ["http://www.simonewebdesign.it/atom.xml","http://www.aladyinlondon.com/feed","http://nshipster.com/feed.xml","http://www.sweetandgeek.it/feed/"]
         isValid = false
         hasShownConnectionError = false
     }
@@ -28,9 +27,8 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         reachability = Reachability.reachabilityForInternetConnection()
-        
+        urlArray = ["http://www.simonewebdesign.it/atom.xml","http://www.aladyinlondon.com/feed","http://nshipster.com/feed.xml","http://www.sweetandgeek.it/feed/"]
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged:", name: ReachabilityChangedNotification, object: reachability)
-        
         reachability.startNotifier()
     }
     
@@ -50,20 +48,6 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
             hasShownConnectionError = false
             connectionLost()
         }
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        homeController = segue.destinationViewController as! HomeController
-        homeController.strUrl = selectedUrl
-    }
-    
-    func registerForKeyboardNotifications() {
-        // Notify when keyboard shows or hide
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
-        //Dismiss the keyboard touching outside the textfield
-        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-        scrollview.addGestureRecognizer(tap)
     }
     
     func findRSSWithString(url:String) {
@@ -105,13 +89,35 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
             }
-
         }
         else {
             hasShownConnectionError = false
             connectionLost()
         }
     }
+    
+    func removeDuplicates(array: [String]) -> [String] {
+        var encountered = Set<String>()
+        var result: [String] = []
+        for value in array {
+            if encountered.contains(value) {
+                // Do not add a duplicate element.
+            }
+            else {
+                // Add value to the set.
+                encountered.insert(value)
+                // ... Append the value.
+                result.append(value)
+            }
+        }
+        return result
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        homeController = segue.destinationViewController as! HomeController
+        homeController.strUrl = selectedUrl
+    }
+    
     
     // MARK: Reachability
     func reachabilityChanged(note: NSNotification) {
@@ -139,6 +145,15 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     }
     
     // MARK: KeyboardNotifications
+    func registerForKeyboardNotifications() {
+        // Notify when keyboard shows or hide
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
+        //Dismiss the keyboard touching outside the textfield
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        scrollview.addGestureRecognizer(tap)
+    }
+
     func keyboardWillShow(aNotification:NSNotification) {
         var info = NSDictionary(dictionary: aNotification.userInfo!)
         var kbSize = info.objectForKey(UIKeyboardFrameBeginUserInfoKey)?.size

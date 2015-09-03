@@ -13,22 +13,39 @@ class FavouritesViewController: UIViewController {
     var favouritesArray: NSMutableArray!
     var selectedUrl: NSString!
     @IBOutlet weak var tableview: UITableView!
+    @IBOutlet weak var selectorView: UIView!
+    @IBOutlet weak var btnArticles: UIButton!
+    @IBOutlet weak var btnBlogs: UIButton!
+    var isBlogs:Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         favouritesArray = NSMutableArray()
+        isBlogs = true
+        self.title = "Favourites"
         // Do any additional setup after loading the view.
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        favouritesArray = PreferenceManager.sharedInstance.getFavourites()
+        
+        selectArray()
+        
         tableview.reloadData()
         if favouritesArray.count == 0 {
             navigationItem.rightBarButtonItem?.enabled = false
         }
         else {
             navigationItem.rightBarButtonItem?.enabled = true
+        }
+    }
+    
+    func selectArray() {
+        if (isBlogs == true) {
+            favouritesArray = PreferenceManager.sharedInstance.getFavourites()
+        }
+        else {
+            favouritesArray = PreferenceManager.sharedInstance.getArticles()
         }
     }
     
@@ -47,30 +64,57 @@ class FavouritesViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
-        var blog = favouritesArray.objectAtIndex(indexPath.row) as! NSDictionary
-        
+       
         var title = cell.viewWithTag(1) as! UILabel
-        title.text = (blog.valueForKey("title") as! String)
-        if title.text == "" {
-            title.hidden = true
-        }
-        
         var descr = cell.viewWithTag(2) as! UILabel
-        descr.text = (blog.valueForKey("description") as! String)
-        if descr.text == "" {
-            descr.hidden = true
+        var author = cell.viewWithTag(3) as! UILabel
+        if (isBlogs == true) {
+             var blog = favouritesArray.objectAtIndex(indexPath.row) as! NSDictionary
+            title.text = (blog.valueForKey("title") as! String)
+            if title.text == "" {
+                title.hidden = true
+            }
+            
+            author.hidden = true
+            
+            descr.text = (blog.valueForKey("description") as! String)
+            if descr.text == "" {
+                descr.hidden = true
+            }
+        }
+        else {
+            var blogPost = favouritesArray.objectAtIndex(indexPath.row) as! NSDictionary
+            title.text = (blogPost.valueForKey("title") as! String)
+            if title.text == "" {
+                title.hidden = true
+            }
+            
+            var formatter = NSDateFormatter()
+            formatter.dateFormat = "dd MMMM yy"
+            descr.text = formatter.stringFromDate(blogPost.valueForKey("update") as! NSDate) as String
+            if descr.text == "" {
+                descr.hidden = true
+            }
+            
+            author.hidden = false
+            author.text = (blogPost.valueForKey("author") as! String)
         }
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        if isBlogs == true {
+            var blog = favouritesArray.objectAtIndex(indexPath.row) as! NSDictionary
+            selectedUrl = blog.valueForKey("link") as! String
+            performSegueWithIdentifier("showFavouritesDetails", sender: self)
+
+        }
+        else {
+            
+        }
         // setBlogPost(blogPosts[indexPath.row] as! MWFeedItem)
-        var blog = favouritesArray.objectAtIndex(indexPath.row) as! NSDictionary
-        selectedUrl = blog.valueForKey("link") as! String
-        performSegueWithIdentifier("showHistoryDetails", sender: self)
-        return indexPath
+                return indexPath
     }
     
     func tableView(tableView: UITableView,
@@ -101,12 +145,25 @@ class FavouritesViewController: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showHistoryDetails" {
+        if segue.identifier == "showFavouritesDetails" {
             var controller: HomeController = segue.destinationViewController as! HomeController
             controller.strUrl = selectedUrl as! String
         }
     }
     
+    //MARK: IBAction
+    @IBAction func btnArticlesPressed(sender: AnyObject) {
+        isBlogs = false
+        selectArray()
+        tableview.reloadData()
+    }
+    
+    @IBAction func btnBlogsPressed(sender: AnyObject) {
+        isBlogs = true
+        selectArray()
+        tableview.reloadData()
+    }
+
     @IBAction func editButtonPressed(sender: AnyObject) {
         var button:UIBarButtonItem = sender as! UIBarButtonItem
         if tableview.editing {
@@ -138,8 +195,13 @@ class FavouritesViewController: UIViewController {
     }
     
     func clearAllFavourites() {
+        if (self.isBlogs == true) {
+            PreferenceManager.sharedInstance.clearFavourites()
+        }
+        else {
+           PreferenceManager.sharedInstance.clearArticles()
+        }
         favouritesArray = NSMutableArray()
-        PreferenceManager.sharedInstance.clearFavourites()
         tableview.reloadData()
         navigationItem.leftBarButtonItem = nil
     }

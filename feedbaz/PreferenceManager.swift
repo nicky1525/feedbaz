@@ -11,6 +11,7 @@ import UIKit
 class PreferenceManager: NSObject {
     let kKEY_HISTORY = "history"
     let kKEY_FAVOURITES = "favourites"
+    let kKEY_ARTICLES =   "articles"
     static let sharedInstance = PreferenceManager()
     var userDefaults: NSUserDefaults!
     
@@ -53,6 +54,25 @@ class PreferenceManager: NSObject {
     
     func clearFavourites() {
         userDefaults.removeObjectForKey(kKEY_FAVOURITES)
+        userDefaults.synchronize()
+    }
+    
+    func saveArticles(array: NSMutableArray) {
+        let data = NSKeyedArchiver.archivedDataWithRootObject(array)
+        userDefaults.setObject(data, forKey: kKEY_ARTICLES)
+        userDefaults.synchronize()
+    }
+    
+    func getArticles() -> NSMutableArray {
+        var favouritesArray = NSMutableArray()
+        if let data = userDefaults.objectForKey(kKEY_ARTICLES) as? NSData {
+            favouritesArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSMutableArray
+        }
+        return favouritesArray
+    }
+    
+    func clearArticles() {
+        userDefaults.removeObjectForKey(kKEY_ARTICLES)
         userDefaults.synchronize()
     }
 }

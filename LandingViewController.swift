@@ -16,7 +16,7 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     var isValid: Bool!
     var reachability:Reachability!
     var hasShownConnectionError:Bool!
-    
+    var historyBlogs:Array<NSDictionary>!
     override func viewDidLoad() {
         super.viewDidLoad()
         registerForKeyboardNotifications()
@@ -96,28 +96,10 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
         }
     }
     
-    func removeDuplicates(array: [String]) -> [String] {
-        var encountered = Set<String>()
-        var result: [String] = []
-        for value in array {
-            if encountered.contains(value) {
-                // Do not add a duplicate element.
-            }
-            else {
-                // Add value to the set.
-                encountered.insert(value)
-                // ... Append the value.
-                result.append(value)
-            }
-        }
-        return result
-    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         homeController = segue.destinationViewController as! HomeController
         homeController.strUrl = selectedUrl
     }
-    
     
     // MARK: Reachability
     func reachabilityChanged(note: NSNotification) {

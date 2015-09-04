@@ -16,6 +16,7 @@ class FavouritesViewController: UIViewController {
     @IBOutlet weak var selectorView: UIView!
     @IBOutlet weak var btnArticles: UIButton!
     @IBOutlet weak var btnBlogs: UIButton!
+    var selectedArticle: NSDictionary!
     var isBlogs:Bool!
     
     override func viewDidLoad() {
@@ -28,16 +29,7 @@ class FavouritesViewController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         selectArray()
-        
-        tableview.reloadData()
-        if favouritesArray.count == 0 {
-            navigationItem.rightBarButtonItem?.enabled = false
-        }
-        else {
-            navigationItem.rightBarButtonItem?.enabled = true
-        }
     }
     
     func selectArray() {
@@ -46,6 +38,13 @@ class FavouritesViewController: UIViewController {
         }
         else {
             favouritesArray = PreferenceManager.sharedInstance.getArticles()
+        }
+        tableview.reloadData()
+        if favouritesArray.count == 0 {
+            navigationItem.rightBarButtonItem?.enabled = false
+        }
+        else {
+            navigationItem.rightBarButtonItem?.enabled = true
         }
     }
     
@@ -108,12 +107,12 @@ class FavouritesViewController: UIViewController {
             var blog = favouritesArray[indexPath.row] as NSDictionary
             selectedUrl = blog.valueForKey("link") as! String
             performSegueWithIdentifier("showFavouritesDetails", sender: self)
-
         }
         else {
-            
+            selectedArticle = favouritesArray[indexPath.row] as NSDictionary
+            performSegueWithIdentifier("showArticlesDetails", sender: self)
         }
-        // setBlogPost(blogPosts[indexPath.row] as! MWFeedItem)
+
                 return indexPath
     }
     
@@ -149,19 +148,32 @@ class FavouritesViewController: UIViewController {
             var controller: HomeController = segue.destinationViewController as! HomeController
             controller.strUrl = selectedUrl as! String
         }
+        else if segue.identifier == "showArticlesDetails" {
+            var controller: DetailViewController = segue.destinationViewController as! DetailViewController
+            controller.article = selectedArticle
+        }
     }
     
     //MARK: IBAction
     @IBAction func btnArticlesPressed(sender: AnyObject) {
         isBlogs = false
         selectArray()
-        tableview.reloadData()
+        animateLineUnderButton(sender as! UIButton)
     }
     
     @IBAction func btnBlogsPressed(sender: AnyObject) {
         isBlogs = true
         selectArray()
-        tableview.reloadData()
+        animateLineUnderButton(sender as! UIButton)
+    }
+    
+    func animateLineUnderButton(sender: UIButton) {
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            self.view.userInteractionEnabled = false
+            self.selectorView.frame = CGRect(x: sender.frame.origin.x, y: sender.frame.origin.y + sender.frame.size.height, width: self.selectorView.frame.size.width, height: self.selectorView.frame.size.height)
+        }) { (Bool) -> Void in
+            self.view.userInteractionEnabled = true
+        }
     }
 
     @IBAction func editButtonPressed(sender: AnyObject) {
@@ -201,6 +213,9 @@ class FavouritesViewController: UIViewController {
         else {
            PreferenceManager.sharedInstance.clearArticles()
         }
+        tableview.setEditing(false, animated: true)
+        navigationItem.rightBarButtonItem?.title = "Edit"
+        navigationItem.rightBarButtonItem?.enabled = false
         favouritesArray = [NSDictionary]()
         tableview.reloadData()
         navigationItem.leftBarButtonItem = nil

@@ -19,8 +19,8 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     var reachability:Reachability!
     var hasShownConnectionError:Bool!
 
-    var favouriteArray: NSMutableArray!
-    var favouriteArticles: NSMutableArray!
+    var favouriteArray: [NSDictionary] = []
+    var favouriteArticles: [NSDictionary] = []
 
     func setBlogPost(post:MWFeedItem) {
         self.post = post
@@ -30,8 +30,8 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         super.viewDidLoad()
         blogPosts = NSMutableArray()
         hasShownConnectionError = false
-        favouriteArray = NSMutableArray()
-        favouriteArticles = NSMutableArray()
+        favouriteArray = [NSDictionary] ()
+        favouriteArticles = [NSDictionary] ()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -116,18 +116,15 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         var index = tableview.indexPathForCell(cell)
         var article = blogPosts.objectAtIndex(index!.row) as! MWFeedItem
         var blogPostDict = ["title": article.title, "author": blogTitle, "link": article.identifier, "update": article.date]
-        if favouriteArticles!.count > 0 {
-            for i in 0 ... favouriteArticles.count {
-                if (favouriteArticles.objectAtIndex(i).valueForKey("title") as! String) != article.title {
-                    favouriteArticles.addObject(blogPostDict)
-                }
+        if favouriteArticles.count > 0 {
+            for i in 0 ... favouriteArticles.count - 1 {
+                favouriteArticles.append(blogPostDict)
             }
         }
         else {
-            favouriteArticles.addObject(blogPostDict)
+            favouriteArticles.append(blogPostDict)
         }
-        
-        PreferenceManager.sharedInstance.saveArticles(favouriteArticles)
+        PreferenceManager.sharedInstance.saveArticles(uniq(favouriteArticles))
     }
     
     @IBAction func btnAddToFavouritesPressed(sender: AnyObject) {
@@ -141,17 +138,27 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         formatter.dateFormat = "HH:mm"
         var hour = formatter.stringFromDate(date)
         var blogDict = ["title": blogTitle, "description": blogDescr, "link": strUrl, "time": hour]
-        if favouriteArray!.count > 0 {
-            for i in 0 ... favouriteArray.count {
-                if (favouriteArray.objectAtIndex(i).valueForKey("title") as! String) != blogTitle {
-                    favouriteArray.addObject(blogDict)
-                }
+        if favouriteArray.count > 0 {
+            for i in 0 ... favouriteArray.count - 1  {
+                    favouriteArray.append(blogDict)
             }
         }
         else {
-            favouriteArray.addObject(blogDict)
+            favouriteArray.append(blogDict)
         }
-        PreferenceManager.sharedInstance.saveFavourites(favouriteArray)
+        PreferenceManager.sharedInstance.saveFavourites(uniq(favouriteArray))
+    }
+    
+    func uniq<S : SequenceType, T : Hashable where S.Generator.Element == T>(source: S) -> [T] {
+        var buffer = [T]()
+        var added = Set<T>()
+        for elem in source {
+            if !added.contains(elem) {
+                buffer.append(elem)
+                added.insert(elem)
+            }
+        }
+        return buffer
     }
 
     // MARK: Reachability

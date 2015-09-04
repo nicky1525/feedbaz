@@ -38,16 +38,16 @@ class PreferenceManager: NSObject {
         userDefaults.synchronize()
     }
     
-    func saveFavourites(array: NSMutableArray) {
+    func saveFavourites(array:[NSDictionary] ) {
         let data = NSKeyedArchiver.archivedDataWithRootObject(array)
         userDefaults.setObject(data, forKey: kKEY_FAVOURITES)
         userDefaults.synchronize()
     }
     
-    func getFavourites() -> NSMutableArray {
-        var favouritesArray = NSMutableArray()
+    func getFavourites() -> [NSDictionary] {
+        var favouritesArray = [NSDictionary] ()
         if let data = userDefaults.objectForKey(kKEY_FAVOURITES) as? NSData {
-            favouritesArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSMutableArray
+            favouritesArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [NSDictionary]
         }
         return favouritesArray
     }
@@ -57,16 +57,16 @@ class PreferenceManager: NSObject {
         userDefaults.synchronize()
     }
     
-    func saveArticles(array: NSMutableArray) {
+    func saveArticles(array:[NSDictionary] ) {
         let data = NSKeyedArchiver.archivedDataWithRootObject(array)
         userDefaults.setObject(data, forKey: kKEY_ARTICLES)
         userDefaults.synchronize()
     }
     
-    func getArticles() -> NSMutableArray {
-        var favouritesArray = NSMutableArray()
+    func getArticles() -> [NSDictionary]  {
+        var favouritesArray = [NSDictionary] ()
         if let data = userDefaults.objectForKey(kKEY_ARTICLES) as? NSData {
-            favouritesArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSMutableArray
+            favouritesArray = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [NSDictionary]
         }
         return favouritesArray
     }

@@ -10,7 +10,7 @@ import UIKit
 
 class FavouritesViewController: UIViewController {
 
-    var favouritesArray: NSMutableArray!
+    var favouritesArray:[NSDictionary]!
     var selectedUrl: NSString!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var selectorView: UIView!
@@ -20,7 +20,7 @@ class FavouritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        favouritesArray = NSMutableArray()
+        favouritesArray = [NSDictionary]()
         isBlogs = true
         self.title = "Favourites"
         // Do any additional setup after loading the view.
@@ -56,11 +56,11 @@ class FavouritesViewController: UIViewController {
     
     // MARK: UITableViewDelegate
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return favouritesArray.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return favouritesArray.count
+        return 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -70,7 +70,7 @@ class FavouritesViewController: UIViewController {
         var descr = cell.viewWithTag(2) as! UILabel
         var author = cell.viewWithTag(3) as! UILabel
         if (isBlogs == true) {
-             var blog = favouritesArray.objectAtIndex(indexPath.row) as! NSDictionary
+             var blog = favouritesArray[indexPath.row] as NSDictionary
             title.text = (blog.valueForKey("title") as! String)
             if title.text == "" {
                 title.hidden = true
@@ -84,7 +84,7 @@ class FavouritesViewController: UIViewController {
             }
         }
         else {
-            var blogPost = favouritesArray.objectAtIndex(indexPath.row) as! NSDictionary
+            var blogPost = favouritesArray[indexPath.row] as NSDictionary
             title.text = (blogPost.valueForKey("title") as! String)
             if title.text == "" {
                 title.hidden = true
@@ -105,7 +105,7 @@ class FavouritesViewController: UIViewController {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         if isBlogs == true {
-            var blog = favouritesArray.objectAtIndex(indexPath.row) as! NSDictionary
+            var blog = favouritesArray[indexPath.row] as NSDictionary
             selectedUrl = blog.valueForKey("link") as! String
             performSegueWithIdentifier("showFavouritesDetails", sender: self)
 
@@ -120,11 +120,11 @@ class FavouritesViewController: UIViewController {
     func tableView(tableView: UITableView,
         commitEditingStyle editingStyle: UITableViewCellEditingStyle,
         forRowAtIndexPath indexPath: NSIndexPath) {
-            var blog = favouritesArray.objectAtIndex(indexPath.row) as! NSDictionary
+            var blog = favouritesArray[indexPath.row] as NSDictionary
             switch editingStyle {
             case .Delete:
                 // remove the deleted item from the model
-                favouritesArray.removeObject(blog)
+                favouritesArray.removeAtIndex(indexPath.row)
                 PreferenceManager.sharedInstance.saveFavourites(favouritesArray)
                 
                 // remove the deleted item from the `UITableView`
@@ -201,7 +201,7 @@ class FavouritesViewController: UIViewController {
         else {
            PreferenceManager.sharedInstance.clearArticles()
         }
-        favouritesArray = NSMutableArray()
+        favouritesArray = [NSDictionary]()
         tableview.reloadData()
         navigationItem.leftBarButtonItem = nil
     }

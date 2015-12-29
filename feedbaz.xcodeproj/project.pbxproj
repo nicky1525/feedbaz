@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A8791B351B95EAD30076F4A6 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8791B341B95EAD30076F4A6 /* HistoryViewController.swift */; };
+		A8791B371B9719920076F4A6 /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8791B361B9719920076F4A6 /* FavouritesViewController.swift */; };
+		A8791B391B9732080076F4A6 /* PreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8791B381B9732080076F4A6 /* PreferenceManager.swift */; };
 		BB26DB381AC9898E00616A96 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB26DB371AC9898E00616A96 /* DetailViewController.swift */; };
 		BB3810C21ABF522800ADCE18 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3810C11ABF522800ADCE18 /* LandingViewController.swift */; };
 		BB45F7F21A30E9B0006E8AFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F7F11A30E9B0006E8AFB /* AppDelegate.swift */; };
@@ -26,6 +29,7 @@
 		BB878C631B946F0200118F75 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BB878C5F1B946F0200118F75 /* TFHppleElement.m */; };
 		BB878C641B946F0200118F75 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = BB878C611B946F0200118F75 /* XPathQuery.m */; };
 		BB878C661B9470DA00118F75 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB878C651B9470DA00118F75 /* libxml2.dylib */; };
+		BBE823761C330D6700695D66 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE823751C330D6700695D66 /* Reachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +43,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A8791B341B95EAD30076F4A6 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		A8791B361B9719920076F4A6 /* FavouritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
+		A8791B381B9732080076F4A6 /* PreferenceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceManager.swift; sourceTree = "<group>"; };
 		BB26DB371AC9898E00616A96 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		BB3810C11ABF522800ADCE18 /* LandingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LandingViewController.swift; path = ../LandingViewController.swift; sourceTree = "<group>"; };
 		BB45F7EC1A30E9B0006E8AFB /* feedbaz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = feedbaz.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +81,7 @@
 		BB878C601B946F0200118F75 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
 		BB878C611B946F0200118F75 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
 		BB878C651B9470DA00118F75 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		BBE823751C330D6700695D66 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,12 +103,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A8791B291B95BEBD0076F4A6 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				BBE823751C330D6700695D66 /* Reachability.swift */,
+			);
+			name = Reachability;
+			sourceTree = "<group>";
+		};
 		BB26DB321AC9890A00616A96 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				BB3810C11ABF522800ADCE18 /* LandingViewController.swift */,
 				BB6D70111B77CB630011072D /* HomeController.swift */,
 				BB26DB371AC9898E00616A96 /* DetailViewController.swift */,
+				A8791B341B95EAD30076F4A6 /* HistoryViewController.swift */,
+				A8791B361B9719920076F4A6 /* FavouritesViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -134,6 +152,9 @@
 		BB45F7EE1A30E9B0006E8AFB /* feedbaz */ = {
 			isa = PBXGroup;
 			children = (
+				A8791B381B9732080076F4A6 /* PreferenceManager.swift */,
+				BB6D6FFA1B77C9940011072D /* feedbaz-Bridging-Header.h */,
+				A8791B291B95BEBD0076F4A6 /* Reachability */,
 				BB878C5B1B946EF500118F75 /* Hpple */,
 				BB6D6FF91B77C96D0011072D /* MWFeedParser */,
 				BB26DB331AC9891A00616A96 /* Resources */,
@@ -182,7 +203,6 @@
 				BB6D6FFF1B77C9940011072D /* MWFeedInfo.m */,
 				BB6D70001B77C9940011072D /* MWFeedItem.h */,
 				BB6D70011B77C9940011072D /* MWFeedItem.m */,
-				BB6D6FFA1B77C9940011072D /* feedbaz-Bridging-Header.h */,
 				BB6D70051B77C9B00011072D /* NSString+HTML.h */,
 				BB6D70061B77C9B00011072D /* NSString+HTML.m */,
 				BB6D70071B77C9B00011072D /* NSDate+InternetDateTime.h */,
@@ -310,17 +330,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8791B371B9719920076F4A6 /* FavouritesViewController.swift in Sources */,
 				BB6D70041B77C9940011072D /* MWFeedItem.m in Sources */,
 				BB6D70021B77C9940011072D /* MWFeedParser.m in Sources */,
 				BB6D700A1B77C9B00011072D /* NSDate+InternetDateTime.m in Sources */,
+				A8791B391B9732080076F4A6 /* PreferenceManager.swift in Sources */,
 				BB878C631B946F0200118F75 /* TFHppleElement.m in Sources */,
 				BB6D700D1B77CB1D0011072D /* GTMNSString+HTML.m in Sources */,
 				BB45F7F21A30E9B0006E8AFB /* AppDelegate.swift in Sources */,
 				BB6D70091B77C9B00011072D /* NSString+HTML.m in Sources */,
+				A8791B351B95EAD30076F4A6 /* HistoryViewController.swift in Sources */,
 				BB6D70031B77C9940011072D /* MWFeedInfo.m in Sources */,
 				BB878C641B946F0200118F75 /* XPathQuery.m in Sources */,
 				BB878C621B946F0200118F75 /* TFHpple.m in Sources */,
 				BB6D70101B77CB320011072D /* NSString+XMLEntities.m in Sources */,
+				BBE823761C330D6700695D66 /* Reachability.swift in Sources */,
 				BB26DB381AC9898E00616A96 /* DetailViewController.swift in Sources */,
 				BB3810C21ABF522800ADCE18 /* LandingViewController.swift in Sources */,
 				BB6D70121B77CB630011072D /* HomeController.swift in Sources */,

@@ -23,7 +23,7 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     }
     
     @IBAction func btnItemPressed(sender: AnyObject) {
-        var button = sender as! UIButton
+        let button = sender as! UIButton
         selectedUrl = urlArray[button.tag - 1]
         performSegueWithIdentifier("ShowArticles", sender: self)
     }
@@ -38,15 +38,15 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
         //Dismiss the keyboard touching outside the textfield
-        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         scrollview.addGestureRecognizer(tap)
     }
     
     func findRSSWithString(url:String) {
         if let blogsUrl = NSURL(string:  "http://\(url)") {
             if let blogHtmlData: NSData = NSData(contentsOfURL: blogsUrl) { // may return nil, too
-                var blogHtmlData: NSData = NSData(contentsOfURL: blogsUrl)!
-                var blogParser: TFHpple = TFHpple(HTMLData: blogHtmlData)
+                let blogHtmlData: NSData = NSData(contentsOfURL: blogsUrl)!
+                let blogParser: TFHpple = TFHpple(HTMLData: blogHtmlData)
                 
                 //looking for this node to find rss feed link: <link rel="alternate" type="application/rss+xml" href="http://example.com/feed" />
                 var blogXpathQueryString: String = "//link[@rel='alternate'][@type='application/rss+xml']"
@@ -63,20 +63,20 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
                         performSegueWithIdentifier("ShowArticles", sender: self)
                     }
                     else {
-                        var alert = UIAlertController(title: "Error", message: "No feed RSS found for the specified URL", preferredStyle: UIAlertControllerStyle.Alert)
+                        let alert = UIAlertController(title: "Error", message: "No feed RSS found for the specified URL", preferredStyle: UIAlertControllerStyle.Alert)
                         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                         self.presentViewController(alert, animated: true, completion: nil)
                     }
                 }
             }
             else {
-                var alert = UIAlertController(title: "Error", message: "Please meake sure you entered a valid URL", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController(title: "Error", message: "Please meake sure you entered a valid URL", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
             }
         }
         else {
-            var alert = UIAlertController(title: "Error", message: "Please meake sure you entered a valid URL", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Error", message: "Please meake sure you entered a valid URL", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
@@ -88,7 +88,7 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     }
         
     func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse) {
-        var httpResponse =  response as! NSHTTPURLResponse
+        let httpResponse =  response as! NSHTTPURLResponse
         if(httpResponse.statusCode < 200 || httpResponse.statusCode >= 300) {
             isValid = false
         }
@@ -99,10 +99,10 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     
     
     func keyboardWillShow(aNotification:NSNotification) {
-        var info = NSDictionary(dictionary: aNotification.userInfo!)
+        let info = NSDictionary(dictionary: aNotification.userInfo!)
         var kbSize = info.objectForKey(UIKeyboardFrameBeginUserInfoKey)?.size
-        var frame = view.frame
-        var scrollPoint = CGPoint(x: 0.0, y: frame.size.height/3);
+        let frame = view.frame
+        let scrollPoint = CGPoint(x: 0.0, y: frame.size.height/3);
         UIView.animateWithDuration(0.25, animations: { () -> Void in
             self.scrollview.setContentOffset(scrollPoint, animated: true)
         }, completion: nil)
@@ -132,7 +132,7 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         scrollview.endEditing(true)
-        findRSSWithString(textField.text)
+        findRSSWithString(textField.text!)
         return true
     }
     

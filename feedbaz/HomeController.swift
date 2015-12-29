@@ -28,7 +28,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-            var feedParser = MWFeedParser(feedURL: NSURL(string: strUrl))
+            let feedParser = MWFeedParser(feedURL: NSURL(string: strUrl))
             feedParser.delegate = self
             feedParser.feedParseType = ParseTypeFull
             feedParser.connectionType = ConnectionTypeSynchronously
@@ -65,20 +65,20 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
             let blogPost: MWFeedItem = blogPosts[indexPath.row] as! MWFeedItem
         
-        var titleText = (blogPost.title != nil) ? blogPost.title : "[No Title]";
-            var author = cell.viewWithTag(1) as! UILabel
+        let titleText = (blogPost.title != nil) ? blogPost.title : "[No Title]";
+            let author = cell.viewWithTag(1) as! UILabel
             author.text = blogPost.author
             if author.text != "" {
                 author.hidden = true
             }
-            var title = cell.viewWithTag(2) as! UILabel
+            let title = cell.viewWithTag(2) as! UILabel
             title.text = titleText
-            var date = cell.viewWithTag(3) as! UILabel
+            let date = cell.viewWithTag(3) as! UILabel
             
-            var formatter = NSDateFormatter()
+            let formatter = NSDateFormatter()
             formatter.dateFormat = "dd/MM/yy"
             date.text = formatter.stringFromDate(blogPost.date!)
         return cell

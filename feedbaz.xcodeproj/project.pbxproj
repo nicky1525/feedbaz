@@ -133,7 +133,6 @@
 		BB45F7E31A30E9B0006E8AFB = {
 			isa = PBXGroup;
 			children = (
-				BB878C651B9470DA00118F75 /* libxml2.dylib */,
 				BB45F7EE1A30E9B0006E8AFB /* feedbaz */,
 				BB45F8041A30E9B0006E8AFB /* feedbazTests */,
 				BB45F7ED1A30E9B0006E8AFB /* Products */,
@@ -171,6 +170,7 @@
 		BB45F7EF1A30E9B0006E8AFB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BB878C651B9470DA00118F75 /* libxml2.dylib */,
 				BB45F7F01A30E9B0006E8AFB /* Info.plist */,
 			);
 			name = "Supporting Files";

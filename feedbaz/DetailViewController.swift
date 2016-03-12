@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MWFeedParser
 
 class DetailViewController: UIViewController {
     var blogPost: MWFeedItem?
@@ -53,5 +54,10 @@ class DetailViewController: UIViewController {
         array!.insertObject(article, atIndex: 0)
         historyDict.setObject(array!, forKey:datestr)
         PreferenceManager.sharedInstance.saveHistory(historyDict)
+    }
+    
+    
+    deinit {
+        webView = nil
     }
 }

@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  feedbaz
+
+  Created by Nicole De La Feld on 09/03/2016.
+  Copyright © 2016 nicky1525. All rights reserved.
+*/
+
+
+// Reachability
+"$NoConnectionTitle$" = "Internet Lost";
+"$NoConnectionMessage$" = "Internet connection lost, please try again once you have internet access.";
+"$NoConnectionAction$" = "OK";

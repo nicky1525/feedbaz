@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MWFeedParser
+import SVProgressHUD
 
 class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate, UITableViewDataSource, MWFeedParserDelegate {
     @IBOutlet weak var tableview: UITableView!
@@ -16,7 +18,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     var blogPosts : NSMutableArray!
     var blogTitle: String!
     var blogDescr: String!
-    var reachability:Reachability!
+   // var reachability:Reachability!
     var hasShownConnectionError:Bool!
 
     var favouriteArray: [NSDictionary] = []
@@ -37,17 +39,18 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+         SVProgressHUD.showWithStatus(NSLocalizedString("Loading...", comment:""), maskType: .Clear)
             let feedParser = MWFeedParser(feedURL: NSURL(string: strUrl))
             feedParser.delegate = self
             feedParser.feedParseType = ParseTypeFull
             feedParser.connectionType = ConnectionTypeAsynchronously
             feedParser.parse();
         do {
-            try reachability = Reachability.reachabilityForInternetConnection()
-            try reachability = Reachability.reachabilityForInternetConnection()
-            
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged:", name: ReachabilityChangedNotification, object: reachability)
-            try reachability.startNotifier()
+//            try reachability = Reachability.reachabilityForInternetConnection()
+//            try reachability = Reachability.reachabilityForInternetConnection()
+//            
+//            NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged:", name: ReachabilityChangedNotification, object: reachability)
+//            try reachability.startNotifier()
 
         } catch {
             print(error)
@@ -66,6 +69,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
     
     func feedParserDidFinish(parser: MWFeedParser!) {
         tableview.reloadData()
+        SVProgressHUD.dismiss()
         if blogTitle != nil {
             self.title = blogTitle
         }
@@ -129,6 +133,8 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         else {
             favouriteArticles.append(blogPostDict)
         }
+        SVProgressHUD.showSuccessWithStatus(NSLocalizedString("Article added to your favourites!", comment:""), maskType:.Clear)
+
         PreferenceManager.sharedInstance.saveArticles(uniq(favouriteArticles))
     }
     
@@ -151,6 +157,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         else {
             favouriteArray.append(blogDict)
         }
+        SVProgressHUD.showSuccessWithStatus(NSLocalizedString("This blog has been saved to your favourites!", comment:""), maskType:.Clear)
         PreferenceManager.sharedInstance.saveFavourites(uniq(favouriteArray))
     }
     
@@ -166,31 +173,31 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         return buffer
     }
 
-    // MARK: Reachability
-    func reachabilityChanged(note: NSNotification) {
-        
-        let reachability = note.object as! Reachability
-        
-        if reachability.isReachable() {
-            if reachability.isReachableViaWiFi() {
-                print("Reachable via WiFi")
-            } else {
-                print("Reachable via Cellular")
-            }
-        } else {
-            print("Not reachable")
-        }
-    }
-    
-    func connectionLost() {
-        if hasShownConnectionError == false {
-            hasShownConnectionError = true;
-            let alert = UIAlertController(title: "No Network", message: "Please check your internet connection and try again later.", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-    }
-
+//    // MARK: Reachability
+//    func reachabilityChanged(note: NSNotification) {
+//        
+//        let reachability = note.object as! Reachability
+//        
+//        if reachability.isReachable() {
+//            if reachability.isReachableViaWiFi() {
+//                print("Reachable via WiFi")
+//            } else {
+//                print("Reachable via Cellular")
+//            }
+//        } else {
+//            print("Not reachable")
+//        }
+//    }
+//    
+//    func connectionLost() {
+//        if hasShownConnectionError == false {
+//            hasShownConnectionError = true;
+//            let alert = UIAlertController(title: "No Network", message: "Please check your internet connection and try again later.", preferredStyle: UIAlertControllerStyle.Alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+//            self.presentViewController(alert, animated: true, completion: nil)
+//        }
+//    }
+//
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier != "ShowDetails"{ return }
         let viewController:DetailViewController = segue.destinationViewController as!DetailViewController
@@ -198,15 +205,15 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         viewController.blogTitle = blogTitle
         viewController.blogUrl = strUrl
     }
-    
-    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
-        if !reachability.isReachable() {
-            hasShownConnectionError = false
-            connectionLost()
-            return false
-        }
-        return true
-    }
+
+//    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+//        if !reachability.isReachable() {
+//            hasShownConnectionError = false
+//            connectionLost()
+//            return false
+//        }
+//        return true
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

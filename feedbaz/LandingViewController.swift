@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ReachabilitySwift
+import SVProgressHUD
 
 class LandingViewController: UIViewController, NSURLConnectionDelegate {
     @IBOutlet weak var scrollview: UIScrollView!
@@ -14,7 +16,7 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     var homeController: HomeController!
     var selectedUrl:String!
     var isValid: Bool!
-    var reachability:Reachability!
+    //var reachability:Reachability!
     var hasShownConnectionError:Bool!
     var historyBlogs:Array<NSDictionary>!
     
@@ -29,10 +31,10 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
         super.viewWillAppear(animated)
         
         do {
-            try reachability = Reachability.reachabilityForInternetConnection()
+           // try reachability = Reachability.reachabilityForInternetConnection()
             urlArray = ["http://www.simonewebdesign.it/atom.xml","http://www.aladyinlondon.com/feed","http://nshipster.com/feed.xml","http://www.sweetandgeek.it/feed/"]
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged:", name: ReachabilityChangedNotification, object: reachability)
-             try reachability.startNotifier()
+//            NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged:", name: ReachabilityChangedNotification, object: reachability)
+//             try reachability.startNotifier()
         } catch {
             print(error)
         }
@@ -40,7 +42,7 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        reachability.stopNotifier()
+       // reachability.stopNotifier()
         NSNotificationCenter.defaultCenter().removeObserver(self)
         super.viewWillDisappear(animated)
     }
@@ -48,17 +50,18 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     @IBAction func btnItemPressed(sender: AnyObject) {
         let button = sender as! UIButton
         selectedUrl = urlArray[button.tag - 1]
-        if reachability.isReachable() {
+        ///if Reachability().isReachable() {
             performSegueWithIdentifier("ShowArticles", sender: self)
-        }
-        else {
-            hasShownConnectionError = false
-            connectionLost()
-        }
+       // }
+
+//        else {
+//            hasShownConnectionError = false
+//            connectionLost()
+//        }
     }
     
     func findRSSWithString(url:String) {
-        if reachability.isReachable() {
+      //  if reachability.isReachable() {
             if let blogsUrl = NSURL(string:  "http://\(url)") {
                 if var blogHtmlData: NSData = NSData(contentsOfURL: blogsUrl) { // may return nil, too
                     blogHtmlData = NSData(contentsOfURL: blogsUrl)!
@@ -79,6 +82,7 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
                             performSegueWithIdentifier("ShowArticles", sender: self)
                         }
                         else {
+                            SVProgressHUD.dismiss()
                             let alert = UIAlertController(title: "Error", message: "No feed RSS found for the specified URL", preferredStyle: UIAlertControllerStyle.Alert)
                             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                             self.presentViewController(alert, animated: true, completion: nil)
@@ -88,20 +92,21 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
                 }
                     
                 else {
+                    SVProgressHUD.dismiss()
                     let alert = UIAlertController(title: "Error", message: "Please meake sure you entered a valid URL", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
             }
             else {
-                
+                SVProgressHUD.dismiss()
                 let alert = UIAlertController(title: "Error", message: "Please meake sure you entered a valid URL", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
                 hasShownConnectionError = false
-                connectionLost()
+                //connectionLost()
             }
-        }
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -112,38 +117,38 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     // MARK: Reachability
     
     
-    func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse) {
-        let httpResponse =  response as! NSHTTPURLResponse
-        if(httpResponse.statusCode < 200 || httpResponse.statusCode >= 300) {
-            isValid = false
-        }
-        else {
-            isValid = true
-            
-        }
-    }
+//    func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse) {
+//        let httpResponse =  response as! NSHTTPURLResponse
+//        if(httpResponse.statusCode < 200 || httpResponse.statusCode >= 300) {
+//            isValid = false
+//        }
+//        else {
+//            isValid = true
+//            
+//        }
+//    }
     
-    func reachabilityChanged(note: NSNotification) {
-        let reachability = note.object as! Reachability
-        if reachability.isReachable() {
-            if reachability.isReachableViaWiFi() {
-                print("Reachable via WiFi")
-            } else {
-                print("Reachable via Cellular")
-            }
-        } else {
-            print("Not reachable")
-        }
-    }
-    
-    func connectionLost() {
-        if hasShownConnectionError == false {
-            hasShownConnectionError = true;
-            let alert = UIAlertController(title: "No Network", message: "Please check your internet connection and try again later.", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-    }
+//    func reachabilityChanged(note: NSNotification) {
+//       // let reachability = note.object as! Reachability
+//        if reachability.isReachable() {
+//            if reachability.isReachableViaWiFi() {
+//                print("Reachable via WiFi")
+//            } else {
+//                print("Reachable via Cellular")
+//            }
+//        } else {
+//            print("Not reachable")
+//        }
+//    }
+//    
+//    func connectionLost() {
+//        if hasShownConnectionError == false {
+//            hasShownConnectionError = true;
+//            let alert = UIAlertController(title: "No Network", message: "Please check your internet connection and try again later.", preferredStyle: UIAlertControllerStyle.Alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+//            self.presentViewController(alert, animated: true, completion: nil)
+//        }
+//    }
     
     // MARK: KeyboardNotifications
     func registerForKeyboardNotifications() {
@@ -189,6 +194,7 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         scrollview.endEditing(true)
+        SVProgressHUD.showWithStatus(NSLocalizedString("Loading...", comment:""), maskType: .Clear)
         findRSSWithString(textField.text!)
         return true
     }

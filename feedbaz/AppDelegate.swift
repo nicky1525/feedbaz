@@ -7,15 +7,19 @@
 //
 
 import UIKit
+import ReachabilitySwift
+import SVProgressHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    private var reachability: Reachability?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        setupReachability()
         return true
     }
 
@@ -40,7 +44,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    func setupReachability() {
+        do {
+            reachability = try Reachability.reachabilityForInternetConnection()
+        } catch {
+            print("Unable to create Reachability")
+        }
+        
+        reachability!.whenReachable = { reachability in
+            dispatch_async(dispatch_get_main_queue()) {
+                //                SVProgressHUD.dismiss()
+                if reachability.isReachableViaWiFi() {
+                    print("Reachable via WiFi")
+                } else {
+                    print("Reachable via Cellular")
+                }
+            }
+        }
+        
+        reachability!.whenUnreachable = { reachability in
+            dispatch_async(dispatch_get_main_queue()) {
+                let alert = UIAlertController(title:NSLocalizedString("$NoConnectionTitle$", comment:""), message:NSLocalizedString("$NoConnectionMessage$", comment:""), preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title:NSLocalizedString("$NoConnectionAction$", comment:""), style: .Default) { _ in SVProgressHUD.dismiss()})
+                self.window?.rootViewController!.presentViewController(alert, animated: true){}
+            }
+        }
+        do {
+            try reachability!.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+    }
 }
 

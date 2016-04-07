@@ -186,7 +186,7 @@ class FavouritesViewController: UIViewController {
         else {
             tableview.setEditing(true, animated: true)
             button.title = "Done"
-            let clearButton = UIBarButtonItem(title: "Clear All", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("clearAllPressed"))
+            let clearButton = UIBarButtonItem(title: "Clear All", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(FavouritesViewController.clearAllPressed))
             navigationItem.leftBarButtonItem = clearButton
         }
         if favouritesArray.count == 0 {

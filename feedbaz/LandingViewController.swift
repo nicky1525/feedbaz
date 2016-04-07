@@ -9,6 +9,7 @@
 import UIKit
 import ReachabilitySwift
 import SVProgressHUD
+import hpple
 
 class LandingViewController: UIViewController, NSURLConnectionDelegate {
     @IBOutlet weak var scrollview: UIScrollView!
@@ -153,10 +154,10 @@ class LandingViewController: UIViewController, NSURLConnectionDelegate {
     // MARK: KeyboardNotifications
     func registerForKeyboardNotifications() {
         // Notify when keyboard shows or hide
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LandingViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LandingViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
         //Dismiss the keyboard touching outside the textfield
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LandingViewController.dismissKeyboard))
         scrollview.addGestureRecognizer(tap)
     }
     

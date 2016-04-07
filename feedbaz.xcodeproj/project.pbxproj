@@ -18,9 +18,6 @@
 		BB45F7FC1A30E9B0006E8AFB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB45F7FA1A30E9B0006E8AFB /* LaunchScreen.xib */; };
 		BB45F8081A30E9B0006E8AFB /* feedbazTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F8071A30E9B0006E8AFB /* feedbazTests.swift */; };
 		BB6D70121B77CB630011072D /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6D70111B77CB630011072D /* HomeController.swift */; };
-		BB878C621B946F0200118F75 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = BB878C5D1B946F0200118F75 /* TFHpple.m */; };
-		BB878C631B946F0200118F75 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BB878C5F1B946F0200118F75 /* TFHppleElement.m */; };
-		BB878C641B946F0200118F75 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = BB878C611B946F0200118F75 /* XPathQuery.m */; };
 		BB878C661B9470DA00118F75 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB878C651B9470DA00118F75 /* libxml2.dylib */; };
 		F011DB1C1C901DC3000ECCB3 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F011DB1B1C901DC3000ECCB3 /* LandingViewController.swift */; };
 		F011DB1E1C9029CB000ECCB3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F011DB1D1C9029CB000ECCB3 /* Localizable.strings */; };
@@ -52,14 +49,7 @@
 		BB45F8011A30E9B0006E8AFB /* feedbazTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = feedbazTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB45F8061A30E9B0006E8AFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB45F8071A30E9B0006E8AFB /* feedbazTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = feedbazTests.swift; sourceTree = "<group>"; };
-		BB6D6FFA1B77C9940011072D /* feedbaz-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "feedbaz-Bridging-Header.h"; sourceTree = "<group>"; };
 		BB6D70111B77CB630011072D /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
-		BB878C5C1B946F0200118F75 /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
-		BB878C5D1B946F0200118F75 /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHpple.m; sourceTree = "<group>"; };
-		BB878C5E1B946F0200118F75 /* TFHppleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHppleElement.h; sourceTree = "<group>"; };
-		BB878C5F1B946F0200118F75 /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHppleElement.m; sourceTree = "<group>"; };
-		BB878C601B946F0200118F75 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
-		BB878C611B946F0200118F75 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
 		BB878C651B9470DA00118F75 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		DF71A59D4CB702F821854288 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F011DB1B1C901DC3000ECCB3 /* LandingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +108,8 @@
 		BB26DB331AC9891A00616A96 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F011DB1D1C9029CB000ECCB3 /* Localizable.strings */,
+				BB45F7F81A30E9B0006E8AFB /* Images.xcassets */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -146,16 +138,12 @@
 			isa = PBXGroup;
 			children = (
 				A8791B381B9732080076F4A6 /* PreferenceManager.swift */,
-				BB6D6FFA1B77C9940011072D /* feedbaz-Bridging-Header.h */,
-				BB878C5B1B946EF500118F75 /* Hpple */,
-				BB26DB331AC9891A00616A96 /* Resources */,
 				BB26DB321AC9890A00616A96 /* ViewControllers */,
+				BB26DB331AC9891A00616A96 /* Resources */,
 				BB45F7F11A30E9B0006E8AFB /* AppDelegate.swift */,
 				BB45F7F51A30E9B0006E8AFB /* Main.storyboard */,
-				BB45F7F81A30E9B0006E8AFB /* Images.xcassets */,
 				BB45F7FA1A30E9B0006E8AFB /* LaunchScreen.xib */,
 				BB45F7EF1A30E9B0006E8AFB /* Supporting Files */,
-				F011DB1D1C9029CB000ECCB3 /* Localizable.strings */,
 			);
 			path = feedbaz;
 			sourceTree = "<group>";
@@ -184,19 +172,6 @@
 				BB45F8061A30E9B0006E8AFB /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		BB878C5B1B946EF500118F75 /* Hpple */ = {
-			isa = PBXGroup;
-			children = (
-				BB878C5C1B946F0200118F75 /* TFHpple.h */,
-				BB878C5D1B946F0200118F75 /* TFHpple.m */,
-				BB878C5E1B946F0200118F75 /* TFHppleElement.h */,
-				BB878C5F1B946F0200118F75 /* TFHppleElement.m */,
-				BB878C601B946F0200118F75 /* XPathQuery.h */,
-				BB878C611B946F0200118F75 /* XPathQuery.m */,
-			);
-			name = Hpple;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,7 +223,7 @@
 			attributes = {
 				LastSwiftMigration = 0720;
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = nicky1525;
 				TargetAttributes = {
 					BB45F7EB1A30E9B0006E8AFB = {
@@ -355,12 +330,9 @@
 			files = (
 				A8791B371B9719920076F4A6 /* FavouritesViewController.swift in Sources */,
 				A8791B391B9732080076F4A6 /* PreferenceManager.swift in Sources */,
-				BB878C631B946F0200118F75 /* TFHppleElement.m in Sources */,
 				BB45F7F21A30E9B0006E8AFB /* AppDelegate.swift in Sources */,
 				A8791B351B95EAD30076F4A6 /* HistoryViewController.swift in Sources */,
-				BB878C641B946F0200118F75 /* XPathQuery.m in Sources */,
 				F011DB1C1C901DC3000ECCB3 /* LandingViewController.swift in Sources */,
-				BB878C621B946F0200118F75 /* TFHpple.m in Sources */,
 				BB26DB381AC9898E00616A96 /* DetailViewController.swift in Sources */,
 				BB6D70121B77CB630011072D /* HomeController.swift in Sources */,
 			);
@@ -424,6 +396,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -442,6 +415,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -478,6 +452,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -497,8 +472,9 @@
 				INFOPLIST_FILE = feedbaz/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "feedbaz/feedbaz-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -517,8 +493,9 @@
 				INFOPLIST_FILE = feedbaz/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "feedbaz/feedbaz-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};
@@ -536,6 +513,7 @@
 				);
 				INFOPLIST_FILE = feedbazTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/feedbaz.app/feedbaz";
 			};
@@ -551,6 +529,7 @@
 				);
 				INFOPLIST_FILE = feedbazTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/feedbaz.app/feedbaz";
 			};

@@ -108,7 +108,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
             date.text = formatter.stringFromDate(blogPost.date!)
         
             let btnFavourite = cell.viewWithTag(4) as! UIButton
-            btnFavourite.addTarget(self, action: Selector("addArticleToFavourites:"), forControlEvents: UIControlEvents.TouchUpInside)
+            btnFavourite.addTarget(self, action: #selector(HomeController.addArticleToFavourites(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         return cell
     }
     
@@ -126,7 +126,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         let article = blogPosts.objectAtIndex(index!.row) as! MWFeedItem
         let blogPostDict = ["title": article.title, "author": blogTitle, "link": article.identifier, "update": article.date]
         if favouriteArticles.count > 0 {
-            for i in 0 ... favouriteArticles.count - 1 {
+            for _ in 0 ... favouriteArticles.count - 1 {
                 favouriteArticles.append(blogPostDict)
             }
         }
@@ -150,7 +150,7 @@ class HomeController: UIViewController, NSXMLParserDelegate, UITableViewDelegate
         let hour = formatter.stringFromDate(date)
         let blogDict = ["title": blogTitle, "description": blogDescr, "link": strUrl, "time": hour]
         if favouriteArray.count > 0 {
-            for i in 0 ... favouriteArray.count - 1  {
+            for _ in 0 ... favouriteArray.count - 1  {
                     favouriteArray.append(blogDict)
             }
         }

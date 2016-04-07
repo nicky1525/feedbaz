@@ -87,9 +87,11 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/MWFeedParser.framework"
   install_framework "Pods/ReachabilitySwift.framework"
   install_framework "Pods/SVProgressHUD.framework"
+  install_framework "Pods/hpple.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/MWFeedParser.framework"
   install_framework "Pods/ReachabilitySwift.framework"
   install_framework "Pods/SVProgressHUD.framework"
+  install_framework "Pods/hpple.framework"
 fi

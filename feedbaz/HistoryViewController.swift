@@ -136,7 +136,7 @@ class HistoryViewController: UIViewController {
         else {
             tableview.setEditing(true, animated: true)
             button.title = "Done"
-            let clearButton = UIBarButtonItem(title: "Clear All", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("clearAllPressed"))
+            let clearButton = UIBarButtonItem(title: "Clear All", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(HistoryViewController.clearAllPressed))
             navigationItem.leftBarButtonItem = clearButton
         }
         if historyDict.allKeys.count == 0 {

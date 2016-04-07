@@ -8,3 +8,4 @@ use_frameworks!
 	pod 'SVProgressHUD'
  	pod 'ReachabilitySwift', :git => 'https://github.com/ashleymills/Reachability.swift'
  	pod 'MWFeedParser'
+	pod 'hpple'
